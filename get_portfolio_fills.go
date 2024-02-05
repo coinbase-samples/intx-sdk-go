@@ -38,8 +38,11 @@ type GetPortfolioFillsResponse struct {
 	Request    *GetPortfolioFillsRequest `json:"request"`
 }
 
-func (c Client) GetPortfolioFills(ctx context.Context,
-	request *GetPortfolioFillsRequest) (*GetPortfolioFillsResponse, error) {
+func (c Client) GetPortfolioFills(
+	ctx context.Context,
+	request *GetPortfolioFillsRequest,
+) (*GetPortfolioFillsResponse, error) {
+
 	path := fmt.Sprintf("/portfolios/%s/fills", request.Portfolio)
 
 	queryParams := appendQueryParam("", "portfolios", request.Portfolio)

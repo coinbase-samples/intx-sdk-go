@@ -31,8 +31,10 @@ type CreateCryptoAddressResponse struct {
 	Request *CreateCryptoAddressRequest `json:"request"`
 }
 
-func (c Client) CreateCryptoAddress(ctx context.Context,
-	request *CreateCryptoAddressRequest) (*CreateCryptoAddressResponse, error) {
+func (c Client) CreateCryptoAddress(
+	ctx context.Context,
+	request *CreateCryptoAddressRequest,
+) (*CreateCryptoAddressResponse, error) {
 
 	path := "/transfers/address"
 

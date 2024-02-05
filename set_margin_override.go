@@ -18,7 +18,6 @@ package intx
 
 import (
 	"context"
-	"errors"
 )
 
 type SetMarginOverrideRequest struct {
@@ -31,11 +30,10 @@ type SetMarginOverrideResponse struct {
 	Request        *SetMarginOverrideRequest `json:"request"`
 }
 
-func (c Client) SetMarginOverride(ctx context.Context,
-	request *SetMarginOverrideRequest) (*SetMarginOverrideResponse, error) {
-	if request == nil {
-		return nil, errors.New("set margin override is nil")
-	}
+func (c Client) SetMarginOverride(
+	ctx context.Context,
+	request *SetMarginOverrideRequest,
+) (*SetMarginOverrideResponse, error) {
 
 	path := "/portfolios/margin"
 

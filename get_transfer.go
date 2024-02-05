@@ -30,8 +30,11 @@ type GetTransferResponse struct {
 	Request   *GetTransferRequest `json:"request"`
 }
 
-func (c Client) GetTransfer(ctx context.Context,
-	request *GetTransferRequest) (*GetTransferResponse, error) {
+func (c Client) GetTransfer(
+	ctx context.Context,
+	request *GetTransferRequest,
+) (*GetTransferResponse, error) {
+
 	path := fmt.Sprintf("/transfers/%s", request.TransferUuid)
 
 	response := &GetTransferResponse{Request: request}

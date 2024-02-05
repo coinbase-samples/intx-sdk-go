@@ -27,8 +27,11 @@ type ListAssetsResponse struct {
 	Request *ListAssetsRequest `json:"request"`
 }
 
-func (c Client) ListAssets(ctx context.Context,
-	request *ListAssetsRequest) (*ListAssetsResponse, error) {
+func (c Client) ListAssets(
+	ctx context.Context,
+	request *ListAssetsRequest,
+) (*ListAssetsResponse, error) {
+
 	path := "/assets"
 
 	response := &ListAssetsResponse{Request: request}

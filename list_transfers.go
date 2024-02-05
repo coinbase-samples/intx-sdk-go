@@ -38,8 +38,11 @@ type ListTransfersResponse struct {
 	Request    *ListTransfersRequest `json:"request"`
 }
 
-func (c Client) ListTransfers(ctx context.Context,
-	request *ListTransfersRequest) (*ListTransfersResponse, error) {
+func (c Client) ListTransfers(
+	ctx context.Context,
+	request *ListTransfersRequest,
+) (*ListTransfersResponse, error) {
+
 	path := "/transfers"
 
 	queryParams := appendQueryParam("", "portfolios", request.Portfolios)

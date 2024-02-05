@@ -41,8 +41,10 @@ type CreateOrderResponse struct {
 	Request *CreateOrderRequest `json:"request"`
 }
 
-func (c Client) CreateOrder(ctx context.Context,
-	request *CreateOrderRequest) (*CreateOrderResponse, error) {
+func (c Client) CreateOrder(
+	ctx context.Context,
+	request *CreateOrderRequest,
+) (*CreateOrderResponse, error) {
 
 	path := "/orders"
 

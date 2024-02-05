@@ -29,8 +29,10 @@ type CreatePortfolioResponse struct {
 	Request   *CreatePortfolioRequest `json:"request"`
 }
 
-func (c Client) CreatePortfolio(ctx context.Context,
-	request *CreatePortfolioRequest) (*CreatePortfolioResponse, error) {
+func (c Client) CreatePortfolio(
+	ctx context.Context,
+	request *CreatePortfolioRequest,
+) (*CreatePortfolioResponse, error) {
 
 	path := "/portfolios"
 

@@ -32,8 +32,10 @@ type CreatePortfolioTransferResponse struct {
 	Request *CreatePortfolioTransferRequest `json:"request"`
 }
 
-func (c Client) CreatePortfolioTransfer(ctx context.Context,
-	request *CreatePortfolioTransferRequest) (*CreatePortfolioTransferResponse, error) {
+func (c Client) CreatePortfolioTransfer(
+	ctx context.Context,
+	request *CreatePortfolioTransferRequest,
+) (*CreatePortfolioTransferResponse, error) {
 
 	path := "/portfolios/transfer"
 

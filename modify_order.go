@@ -35,8 +35,11 @@ type ModifyOrderResponse struct {
 	Request *ModifyOrderRequest
 }
 
-func (c Client) ModifyOrder(ctx context.Context,
-	request *ModifyOrderRequest) (*ModifyOrderResponse, error) {
+func (c Client) ModifyOrder(
+	ctx context.Context,
+	request *ModifyOrderRequest,
+) (*ModifyOrderResponse, error) {
+
 	path := fmt.Sprintf("/orders/%s", request.Id)
 
 	type modifyOrderBody struct {

@@ -35,8 +35,10 @@ type CreateWithdrawalToCryptoAddressResponse struct {
 	Request *CreateWithdrawalToCryptoAddressRequest `json:"request"`
 }
 
-func (c Client) CreateWithdrawalToCryptoAddress(ctx context.Context,
-	request *CreateWithdrawalToCryptoAddressRequest) (*CreateWithdrawalToCryptoAddressResponse, error) {
+func (c Client) CreateWithdrawalToCryptoAddress(
+	ctx context.Context,
+	request *CreateWithdrawalToCryptoAddressRequest,
+) (*CreateWithdrawalToCryptoAddressResponse, error) {
 
 	path := "/transfers/withdraw"
 

@@ -27,8 +27,11 @@ type ListPortfoliosResponse struct {
 	Request    *ListPortfoliosRequest `json:"request"`
 }
 
-func (c Client) ListPortfolios(ctx context.Context,
-	request *ListPortfoliosRequest) (*ListPortfoliosResponse, error) {
+func (c Client) ListPortfolios(
+	ctx context.Context,
+	request *ListPortfoliosRequest,
+) (*ListPortfoliosResponse, error) {
+
 	path := "/portfolios"
 
 	response := &ListPortfoliosResponse{Request: request}

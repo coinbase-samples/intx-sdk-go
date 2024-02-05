@@ -30,8 +30,11 @@ type GetPortfolioPositionsResponse struct {
 	Request   *GetPortfolioPositionsRequest `json:"request"`
 }
 
-func (c Client) GetPortfolioPositions(ctx context.Context,
-	request *GetPortfolioPositionsRequest) (*GetPortfolioPositionsResponse, error) {
+func (c Client) GetPortfolioPositions(
+	ctx context.Context,
+	request *GetPortfolioPositionsRequest,
+) (*GetPortfolioPositionsResponse, error) {
+
 	path := fmt.Sprintf("/portfolios/%s/positions", request.Portfolio)
 
 	response := &GetPortfolioPositionsResponse{Request: request}

@@ -31,8 +31,11 @@ type GetOrderDetailsResponse struct {
 	Request *GetOrderDetailsRequest
 }
 
-func (c Client) GetOrderDetails(ctx context.Context,
-	request *GetOrderDetailsRequest) (*GetOrderDetailsResponse, error) {
+func (c Client) GetOrderDetails(
+	ctx context.Context,
+	request *GetOrderDetailsRequest,
+) (*GetOrderDetailsResponse, error) {
+
 	path := fmt.Sprintf("/orders/%s", request.Id)
 
 	queryParams := appendQueryParam("", "portfolio", request.Portfolio)

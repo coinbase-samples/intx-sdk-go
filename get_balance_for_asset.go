@@ -31,8 +31,11 @@ type GetAssetBalanceResponse struct {
 	Request *GetAssetBalanceRequest `json:"request"`
 }
 
-func (c Client) GetAssetBalance(ctx context.Context,
-	request *GetAssetBalanceRequest) (*GetAssetBalanceResponse, error) {
+func (c Client) GetAssetBalance(
+	ctx context.Context,
+	request *GetAssetBalanceRequest,
+) (*GetAssetBalanceResponse, error) {
+
 	path := fmt.Sprintf("/portfolios/%s/balances/%s", request.Portfolio, request.Asset)
 
 	response := &GetAssetBalanceResponse{Request: request}

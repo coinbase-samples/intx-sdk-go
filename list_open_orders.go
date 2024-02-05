@@ -38,8 +38,11 @@ type ListOpenOrdersResponse struct {
 	Request    *ListOpenOrdersRequest `json:"request"`
 }
 
-func (c Client) ListOpenOrders(ctx context.Context,
-	request *ListOpenOrdersRequest) (*ListOpenOrdersResponse, error) {
+func (c Client) ListOpenOrders(
+	ctx context.Context,
+	request *ListOpenOrdersRequest,
+) (*ListOpenOrdersResponse, error) {
+
 	path := "/orders"
 
 	queryParams := appendQueryParam("", "portfolio", request.Portfolio)

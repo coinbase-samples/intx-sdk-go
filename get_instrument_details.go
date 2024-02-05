@@ -30,8 +30,11 @@ type GetInstrumentResponse struct {
 	Request          *GetInstrumentRequest `json:"request"`
 }
 
-func (c Client) GetInstrument(ctx context.Context,
-	request *GetInstrumentRequest) (*GetInstrumentResponse, error) {
+func (c Client) GetInstrument(
+	ctx context.Context,
+	request *GetInstrumentRequest,
+) (*GetInstrumentResponse, error) {
+
 	path := fmt.Sprintf("/instruments/%s", request.Instrument)
 
 	response := &GetInstrumentResponse{Request: request}

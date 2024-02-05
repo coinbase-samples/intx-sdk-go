@@ -33,8 +33,10 @@ type CreateWithdrawalToCounterpartyIdResponse struct {
 	Request    *CreateWithdrawalToCounterpartyIdRequest `json:"request"`
 }
 
-func (c Client) CreateWithdrawalToCounterpartyId(ctx context.Context,
-	request *CreateWithdrawalToCounterpartyIdRequest) (*CreateWithdrawalToCounterpartyIdResponse, error) {
+func (c Client) CreateWithdrawalToCounterpartyId(
+	ctx context.Context,
+	request *CreateWithdrawalToCounterpartyIdRequest,
+) (*CreateWithdrawalToCounterpartyIdResponse, error) {
 
 	path := "/transfers/withdraw/counterparty"
 

@@ -30,8 +30,11 @@ type GetAssetResponse struct {
 	Request     *GetAssetRequest
 }
 
-func (c Client) GetAsset(ctx context.Context,
-	request *GetAssetRequest) (*GetAssetResponse, error) {
+func (c Client) GetAsset(
+	ctx context.Context,
+	request *GetAssetRequest,
+) (*GetAssetResponse, error) {
+
 	path := fmt.Sprintf("/assets/%s", request.Asset)
 
 	response := &GetAssetResponse{Request: request}

@@ -30,8 +30,11 @@ type GetHistoricalFundingResponse struct {
 	Request                *GetHistoricalFundingRequest `json:"request"`
 }
 
-func (c Client) GetHistoricalFundingRates(ctx context.Context,
-	request *GetHistoricalFundingRequest) (*GetHistoricalFundingResponse, error) {
+func (c Client) GetHistoricalFundingRates(
+	ctx context.Context,
+	request *GetHistoricalFundingRequest,
+) (*GetHistoricalFundingResponse, error) {
+
 	path := fmt.Sprintf("/instruments/%s/funding", request.Instrument)
 
 	response := &GetHistoricalFundingResponse{Request: request}

@@ -30,8 +30,10 @@ type CancelOrdersResponse struct {
 	Request *CancelOrdersRequest
 }
 
-func (c Client) CancelOrders(ctx context.Context,
-	request *CancelOrdersRequest) (*CancelOrdersResponse, error) {
+func (c Client) CancelOrders(
+	ctx context.Context,
+	request *CancelOrdersRequest,
+) (*CancelOrdersResponse, error) {
 
 	path := "/orders"
 

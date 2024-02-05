@@ -29,8 +29,10 @@ type ValidateCounterpartyIdResponse struct {
 	Request    *ValidateCounterpartyIdRequest `json:"request"`
 }
 
-func (c Client) ValidateCounterpartyId(ctx context.Context,
-	request *ValidateCounterpartyIdRequest) (*ValidateCounterpartyIdResponse, error) {
+func (c Client) ValidateCounterpartyId(
+	ctx context.Context,
+	request *ValidateCounterpartyIdRequest,
+) (*ValidateCounterpartyIdResponse, error) {
 
 	path := "/transfers/validate-counterparty-id"
 

@@ -38,8 +38,11 @@ type ListFillsByPortfoliosResponse struct {
 	Request    *ListFillsByPortfoliosRequest `json:"request"`
 }
 
-func (c Client) ListFillsByPortfolios(ctx context.Context,
-	request *ListFillsByPortfoliosRequest) (*ListFillsByPortfoliosResponse, error) {
+func (c Client) ListFillsByPortfolios(
+	ctx context.Context,
+	request *ListFillsByPortfoliosRequest,
+) (*ListFillsByPortfoliosResponse, error) {
+
 	path := "/portfolios/fills"
 
 	queryParams := appendQueryParam("", "portfolios", request.Portfolios)

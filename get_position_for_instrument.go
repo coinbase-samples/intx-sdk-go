@@ -31,8 +31,11 @@ type GetInstrumentPositionResponse struct {
 	Request   *GetInstrumentPositionRequest `json:"request"`
 }
 
-func (c Client) GetInstrumentPosition(ctx context.Context,
-	request *GetInstrumentPositionRequest) (*GetInstrumentPositionResponse, error) {
+func (c Client) GetInstrumentPosition(
+	ctx context.Context,
+	request *GetInstrumentPositionRequest,
+) (*GetInstrumentPositionResponse, error) {
+
 	path := fmt.Sprintf("/portfolios/%s/positions/%s", request.Portfolio, request.Instrument)
 
 	response := &GetInstrumentPositionResponse{Request: request}

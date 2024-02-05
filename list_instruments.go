@@ -27,8 +27,11 @@ type ListInstrumentsResponse struct {
 	Request     *ListInstrumentsRequest `json:"request"`
 }
 
-func (c Client) ListInstruments(ctx context.Context,
-	request *ListInstrumentsRequest) (*ListInstrumentsResponse, error) {
+func (c Client) ListInstruments(
+	ctx context.Context,
+	request *ListInstrumentsRequest,
+) (*ListInstrumentsResponse, error) {
+
 	path := "/instruments"
 
 	response := &ListInstrumentsResponse{Request: request}

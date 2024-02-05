@@ -30,8 +30,10 @@ type GetSupportedNetworksResponse struct {
 	Request       *GetSupportedNetworksRequest `json:"request"`
 }
 
-func (c Client) GetSupportedNetworks(ctx context.Context,
-	request *GetSupportedNetworksRequest) (*GetSupportedNetworksResponse, error) {
+func (c Client) GetSupportedNetworks(
+	ctx context.Context,
+	request *GetSupportedNetworksRequest,
+) (*GetSupportedNetworksResponse, error) {
 
 	path := fmt.Sprintf("/assets/%s/networks", request.Asset)
 

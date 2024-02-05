@@ -29,8 +29,10 @@ type CreateCounterpartyIdResponse struct {
 	Request      *CreateCounterpartyIdRequest `json:"request"`
 }
 
-func (c Client) CreateCounterpartyId(ctx context.Context,
-	request *CreateCounterpartyIdRequest) (*CreateCounterpartyIdResponse, error) {
+func (c Client) CreateCounterpartyId(
+	ctx context.Context,
+	request *CreateCounterpartyIdRequest,
+) (*CreateCounterpartyIdResponse, error) {
 
 	path := "/transfers/create-counterparty-id"
 

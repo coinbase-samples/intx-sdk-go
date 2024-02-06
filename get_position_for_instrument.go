@@ -22,8 +22,8 @@ import (
 )
 
 type GetInstrumentPositionRequest struct {
-	Portfolio  string `json:"portfolio"`
-	Instrument string `json:"instrument"`
+	PortfolioId  string `json:"portfolio"`
+	InstrumentId string `json:"instrument"`
 }
 
 type GetInstrumentPositionResponse struct {
@@ -36,7 +36,7 @@ func (c Client) GetInstrumentPosition(
 	request *GetInstrumentPositionRequest,
 ) (*GetInstrumentPositionResponse, error) {
 
-	path := fmt.Sprintf("/portfolios/%s/positions/%s", request.Portfolio, request.Instrument)
+	path := fmt.Sprintf("/portfolios/%s/positions/%s", request.PortfolioId, request.InstrumentId)
 
 	response := &GetInstrumentPositionResponse{Request: request}
 

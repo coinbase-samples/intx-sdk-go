@@ -20,7 +20,6 @@ import (
 	"context"
 	"github.com/coinbase-samples/intx-sdk-go"
 	"github.com/google/uuid"
-	"log"
 	"testing"
 	"time"
 )
@@ -37,16 +36,16 @@ func TestCreateOrder(t *testing.T) {
 
 	clientOrderId, err := uuid.NewUUID()
 	if err != nil {
-		log.Fatal("Error generating UUID:", err)
+		t.Fatal("could not generate UUID:", err)
 	}
 
 	response, err := client.CreateOrder(
 		ctx,
 		&intx.CreateOrderRequest{
-			Portfolio:     client.Credentials.PortfolioId,
+			PortfolioId:   client.Credentials.PortfolioId,
 			ClientOrderId: clientOrderId.String(),
 			Side:          "BUY",
-			Instrument:    "b3469e0b-222c-4f8a-9f68-1f9e44d7e5e0",
+			InstrumentId:  "b3469e0b-222c-4f8a-9f68-1f9e44d7e5e0",
 			Type:          "LIMIT",
 			Tif:           "GTC",
 			Size:          "0.1",

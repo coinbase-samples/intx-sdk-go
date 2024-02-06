@@ -21,9 +21,9 @@ import (
 )
 
 type CreateWithdrawalToCounterpartyIdRequest struct {
-	Portfolio      string `json:"portfolio"`
+	PortfolioId    string `json:"portfolio"`
 	CounterpartyId string `json:"counterparty_id"`
-	Asset          string `json:"asset"`
+	AssetId        string `json:"asset"`
 	Amount         string `json:"amount"`
 	Nonce          string `json:"nonce"`
 }

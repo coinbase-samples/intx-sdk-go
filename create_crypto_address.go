@@ -21,8 +21,8 @@ import (
 )
 
 type CreateCryptoAddressRequest struct {
-	Portfolio    string `json:"portfolio"`
-	Asset        string `json:"asset"`
+	PortfolioId  string `json:"portfolio"`
+	AssetId      string `json:"asset"`
 	NetworkArnId string `json:"network_arn_id"`
 }
 

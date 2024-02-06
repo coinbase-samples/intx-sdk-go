@@ -22,8 +22,8 @@ import (
 )
 
 type ListOpenOrdersRequest struct {
-	Portfolio     string `json:"portfolio"`
-	Instrument    string `json:"instrument,omitempty"`
+	PortfolioId   string `json:"portfolio"`
+	InstrumentId  string `json:"instrument,omitempty"`
 	ClientOrderId string `json:"client_order_id,omitempty"`
 	EventType     string `json:"event_type,omitempty"`
 	RefDatetime   string `json:"ref_datetime,omitempty"`
@@ -45,10 +45,10 @@ func (c Client) ListOpenOrders(
 
 	path := "/orders"
 
-	queryParams := appendQueryParam("", "portfolio", request.Portfolio)
+	queryParams := appendQueryParam("", "portfolio", request.PortfolioId)
 
-	if request.Instrument != "" {
-		queryParams = appendQueryParam(queryParams, "instrument", request.Instrument)
+	if request.InstrumentId != "" {
+		queryParams = appendQueryParam(queryParams, "instrument", request.InstrumentId)
 	}
 	if request.ClientOrderId != "" {
 		queryParams = appendQueryParam(queryParams, "client_order_id", request.ClientOrderId)

@@ -22,8 +22,8 @@ import (
 )
 
 type GetAssetBalanceRequest struct {
-	Portfolio string `json:"portfolio"`
-	Asset     string `json:"asset"`
+	PortfolioId string `json:"portfolio"`
+	AssetId     string `json:"asset"`
 }
 
 type GetAssetBalanceResponse struct {
@@ -36,7 +36,7 @@ func (c Client) GetAssetBalance(
 	request *GetAssetBalanceRequest,
 ) (*GetAssetBalanceResponse, error) {
 
-	path := fmt.Sprintf("/portfolios/%s/balances/%s", request.Portfolio, request.Asset)
+	path := fmt.Sprintf("/portfolios/%s/balances/%s", request.PortfolioId, request.AssetId)
 
 	response := &GetAssetBalanceResponse{Request: request}
 

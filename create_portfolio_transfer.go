@@ -21,10 +21,10 @@ import (
 )
 
 type CreatePortfolioTransferRequest struct {
-	From   string `json:"from"`
-	To     string `json:"to"`
-	Asset  string `json:"asset"`
-	Amount string `json:"amount"`
+	From    string `json:"from"`
+	To      string `json:"to"`
+	AssetId string `json:"asset"`
+	Amount  string `json:"amount"`
 }
 
 type CreatePortfolioTransferResponse struct {

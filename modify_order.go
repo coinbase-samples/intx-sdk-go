@@ -22,8 +22,8 @@ import (
 )
 
 type ModifyOrderRequest struct {
-	Id            string `json:"id"`
-	Portfolio     string `json:"portfolio"`
+	OrderId       string `json:"id"`
+	PortfolioId   string `json:"portfolio"`
 	ClientOrderId string `json:"client_order_id"`
 	Price         string `json:"price,omitempty"`
 	StopPrice     string `json:"stop_price,omitempty"`
@@ -40,7 +40,7 @@ func (c Client) ModifyOrder(
 	request *ModifyOrderRequest,
 ) (*ModifyOrderResponse, error) {
 
-	path := fmt.Sprintf("/orders/%s", request.Id)
+	path := fmt.Sprintf("/orders/%s", request.OrderId)
 
 	type modifyOrderBody struct {
 		Portfolio     string `json:"portfolio"`
@@ -51,7 +51,7 @@ func (c Client) ModifyOrder(
 	}
 
 	body := modifyOrderBody{
-		Portfolio:     request.Portfolio,
+		Portfolio:     request.PortfolioId,
 		ClientOrderId: request.ClientOrderId,
 		Price:         request.Price,
 		StopPrice:     request.StopPrice,

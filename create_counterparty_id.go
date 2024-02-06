@@ -21,7 +21,7 @@ import (
 )
 
 type CreateCounterpartyIdRequest struct {
-	Portfolio string `json:"portfolio"`
+	PortfolioId string `json:"portfolio"`
 }
 
 type CreateCounterpartyIdResponse struct {
@@ -36,7 +36,7 @@ func (c Client) CreateCounterpartyId(
 
 	path := "/transfers/create-counterparty-id"
 
-	queryParams := appendQueryParam("", "portfolio", request.Portfolio)
+	queryParams := appendQueryParam("", "portfolio", request.PortfolioId)
 
 	response := &CreateCounterpartyIdResponse{Request: request}
 

@@ -34,7 +34,7 @@ func TestGetAsset(t *testing.T) {
 	}
 
 	response, err := client.GetAsset(ctx, &intx.GetAssetRequest{
-		Asset: "BTC",
+		AssetId: "BTC",
 	})
 
 	if err != nil {

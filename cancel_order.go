@@ -22,8 +22,8 @@ import (
 )
 
 type CancelOrderRequest struct {
-	Portfolio string `json:"portfolio"`
-	Id        string `json:"id"`
+	PortfolioId string `json:"portfolio"`
+	OrderId     string `json:"id"`
 }
 
 type CancelOrderResponse struct {
@@ -36,9 +36,9 @@ func (c Client) CancelOrder(
 	request *CancelOrderRequest,
 ) (*CancelOrderResponse, error) {
 
-	path := fmt.Sprintf("/orders/%s", request.Id)
+	path := fmt.Sprintf("/orders/%s", request.OrderId)
 
-	queryParams := appendQueryParam("", "portfolio", request.Portfolio)
+	queryParams := appendQueryParam("", "portfolio", request.PortfolioId)
 
 	response := &CancelOrderResponse{Request: request}
 

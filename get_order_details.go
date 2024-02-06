@@ -22,8 +22,8 @@ import (
 )
 
 type GetOrderDetailsRequest struct {
-	Portfolio string `json:"portfolio"`
-	Id        string `json:"id"`
+	PortfolioId string `json:"portfolio"`
+	OrderId     string `json:"id"`
 }
 
 type GetOrderDetailsResponse struct {
@@ -36,9 +36,9 @@ func (c Client) GetOrderDetails(
 	request *GetOrderDetailsRequest,
 ) (*GetOrderDetailsResponse, error) {
 
-	path := fmt.Sprintf("/orders/%s", request.Id)
+	path := fmt.Sprintf("/orders/%s", request.OrderId)
 
-	queryParams := appendQueryParam("", "portfolio", request.Portfolio)
+	queryParams := appendQueryParam("", "portfolio", request.PortfolioId)
 
 	response := &GetOrderDetailsResponse{Request: request}
 

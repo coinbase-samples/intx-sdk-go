@@ -22,7 +22,7 @@ import (
 )
 
 type ListFillsByPortfoliosRequest struct {
-	Portfolios    string `json:"portfolios"`
+	PortfolioIds  string `json:"portfolios"`
 	OrderId       string `json:"order_id,omitempty"`
 	ClientOrderId string `json:"client_order_id,omitempty"`
 	RefDatetime   string `json:"ref_datetime,omitempty"`
@@ -45,7 +45,7 @@ func (c Client) ListFillsByPortfolios(
 
 	path := "/portfolios/fills"
 
-	queryParams := appendQueryParam("", "portfolios", request.Portfolios)
+	queryParams := appendQueryParam("", "portfolios", request.PortfolioIds)
 
 	if request.OrderId != "" {
 		queryParams = appendQueryParam(queryParams, "order_id", request.OrderId)

@@ -22,7 +22,7 @@ import (
 )
 
 type GetPortfolioPositionsRequest struct {
-	Portfolio string `json:"portfolio"`
+	PortfolioId string `json:"portfolio"`
 }
 
 type GetPortfolioPositionsResponse struct {
@@ -35,7 +35,7 @@ func (c Client) GetPortfolioPositions(
 	request *GetPortfolioPositionsRequest,
 ) (*GetPortfolioPositionsResponse, error) {
 
-	path := fmt.Sprintf("/portfolios/%s/positions", request.Portfolio)
+	path := fmt.Sprintf("/portfolios/%s/positions", request.PortfolioId)
 
 	response := &GetPortfolioPositionsResponse{Request: request}
 

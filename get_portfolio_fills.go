@@ -22,7 +22,7 @@ import (
 )
 
 type GetPortfolioFillsRequest struct {
-	Portfolio     string `json:"portfolio"`
+	PortfolioId   string `json:"portfolio"`
 	OrderId       string `json:"order_id,omitempty"`
 	ClientOrderId string `json:"client_order_id,omitempty"`
 	RefDatetime   string `json:"ref_datetime,omitempty"`
@@ -43,9 +43,9 @@ func (c Client) GetPortfolioFills(
 	request *GetPortfolioFillsRequest,
 ) (*GetPortfolioFillsResponse, error) {
 
-	path := fmt.Sprintf("/portfolios/%s/fills", request.Portfolio)
+	path := fmt.Sprintf("/portfolios/%s/fills", request.PortfolioId)
 
-	queryParams := appendQueryParam("", "portfolios", request.Portfolio)
+	queryParams := appendQueryParam("", "portfolios", request.PortfolioId)
 
 	if request.OrderId != "" {
 		queryParams = appendQueryParam(queryParams, "order_id", request.OrderId)

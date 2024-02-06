@@ -25,13 +25,13 @@ type CreateOrderRequest struct {
 	Side          string  `json:"side"`
 	Size          string  `json:"size"`
 	Tif           string  `json:"tif"`
-	Instrument    string  `json:"instrument"`
+	InstrumentId  string  `json:"instrument"`
 	Type          string  `json:"type"`
 	Price         string  `json:"price,omitempty"`
 	StopPrice     *string `json:"stop_price,omitempty"`
 	ExpireTime    *string `json:"expire_time,omitempty"`
-	Portfolio     string  `json:"portfolio"`
-	User          *string `json:"user,omitempty"`
+	PortfolioId   string  `json:"portfolio"`
+	UserId        *string `json:"user,omitempty"`
 	StpMode       *string `json:"stp_mode,omitempty"`
 	PostOnly      *bool   `json:"post_only,omitempty"`
 }

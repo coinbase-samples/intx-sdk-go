@@ -21,8 +21,8 @@ import (
 )
 
 type CreateWithdrawalToCryptoAddressRequest struct {
-	Portfolio            string `json:"portfolio"`
-	Asset                string `json:"asset"`
+	PortfolioId          string `json:"portfolio"`
+	AssetId              string `json:"asset"`
 	Amount               string `json:"amount"`
 	AddNetworkFeeToTotal bool   `json:"add_network_fee_to_total"`
 	NetworkArnId         string `json:"network_arn_id"`

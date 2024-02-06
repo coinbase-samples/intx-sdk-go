@@ -22,7 +22,7 @@ import (
 )
 
 type GetHistoricalFundingRequest struct {
-	Instrument string `json:"instrument"`
+	InstrumentId string `json:"instrument"`
 }
 
 type GetHistoricalFundingResponse struct {
@@ -35,7 +35,7 @@ func (c Client) GetHistoricalFundingRates(
 	request *GetHistoricalFundingRequest,
 ) (*GetHistoricalFundingResponse, error) {
 
-	path := fmt.Sprintf("/instruments/%s/funding", request.Instrument)
+	path := fmt.Sprintf("/instruments/%s/funding", request.InstrumentId)
 
 	response := &GetHistoricalFundingResponse{Request: request}
 

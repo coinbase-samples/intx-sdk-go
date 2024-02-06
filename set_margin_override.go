@@ -21,7 +21,7 @@ import (
 )
 
 type SetMarginOverrideRequest struct {
-	Portfolio      string `json:"portfolio"`
+	PortfolioId    string `json:"portfolio"`
 	MarginOverride string `json:"margin_override"`
 }
 

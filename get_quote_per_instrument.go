@@ -22,7 +22,7 @@ import (
 )
 
 type GetInstrumentQuoteRequest struct {
-	Instrument string `json:"instrument"`
+	InstrumentId string `json:"instrument"`
 }
 
 type GetInstrumentQuoteResponse struct {
@@ -35,7 +35,7 @@ func (c Client) GetInstrumentQuote(
 	request *GetInstrumentQuoteRequest,
 ) (*GetInstrumentQuoteResponse, error) {
 
-	path := fmt.Sprintf("/instruments/%s/quote", request.Instrument)
+	path := fmt.Sprintf("/instruments/%s/quote", request.InstrumentId)
 
 	response := &GetInstrumentQuoteResponse{Request: request}
 

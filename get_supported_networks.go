@@ -22,7 +22,7 @@ import (
 )
 
 type GetSupportedNetworksRequest struct {
-	Asset string `json:"asset"`
+	AssetId string `json:"asset"`
 }
 
 type GetSupportedNetworksResponse struct {
@@ -35,7 +35,7 @@ func (c Client) GetSupportedNetworks(
 	request *GetSupportedNetworksRequest,
 ) (*GetSupportedNetworksResponse, error) {
 
-	path := fmt.Sprintf("/assets/%s/networks", request.Asset)
+	path := fmt.Sprintf("/assets/%s/networks", request.AssetId)
 
 	response := &GetSupportedNetworksResponse{Request: request}
 

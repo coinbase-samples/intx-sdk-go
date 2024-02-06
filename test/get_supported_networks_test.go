@@ -35,7 +35,7 @@ func TestGetSupportedNetworks(t *testing.T) {
 	asset := "ETH"
 
 	response, err := client.GetSupportedNetworks(ctx, &intx.GetSupportedNetworksRequest{
-		Asset: asset,
+		AssetId: asset,
 	})
 	if err != nil {
 		t.Fatalf("GetSupportedNetworks returned an error: %v", err)

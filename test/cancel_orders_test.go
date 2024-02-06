@@ -33,8 +33,8 @@ func TestCancelOrders(t *testing.T) {
 	}
 
 	response, err := client.CancelOrders(ctx, &intx.CancelOrdersRequest{
-		Portfolio:  client.Credentials.PortfolioId,
-		Instrument: "BTC-USDC",
+		PortfolioId:  client.Credentials.PortfolioId,
+		InstrumentId: "BTC-USDC",
 	})
 	if err != nil {
 		t.Fatal(err)

@@ -22,7 +22,7 @@ import (
 )
 
 type ListTransfersRequest struct {
-	Portfolios   string `json:"portfolios"`
+	PortfolioIds string `json:"portfolios"`
 	TimeFrom     string `json:"time_from"`
 	TimeTo       string `json:"time_to"`
 	ResultLimit  int    `json:"result_limit"`
@@ -45,7 +45,7 @@ func (c Client) ListTransfers(
 
 	path := "/transfers"
 
-	queryParams := appendQueryParam("", "portfolios", request.Portfolios)
+	queryParams := appendQueryParam("", "portfolios", request.PortfolioIds)
 
 	if request.TimeFrom != "" {
 		queryParams = appendQueryParam(queryParams, "time_from", request.TimeFrom)

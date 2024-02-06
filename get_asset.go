@@ -22,7 +22,7 @@ import (
 )
 
 type GetAssetRequest struct {
-	Asset string `json:"asset"`
+	AssetId string `json:"asset"`
 }
 
 type GetAssetResponse struct {
@@ -35,7 +35,7 @@ func (c Client) GetAsset(
 	request *GetAssetRequest,
 ) (*GetAssetResponse, error) {
 
-	path := fmt.Sprintf("/assets/%s", request.Asset)
+	path := fmt.Sprintf("/assets/%s", request.AssetId)
 
 	response := &GetAssetResponse{Request: request}
 

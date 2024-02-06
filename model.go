@@ -232,13 +232,13 @@ type PaginationSubset struct {
 }
 
 type PortfolioSubset struct {
-	ID   string `json:"id"`
-	UUID string `json:"uuid"`
+	Id   string `json:"id"`
+	Uuid string `json:"uuid"`
 	Name string `json:"name"`
 }
 
 type Transfer struct {
-	TransferUUID       string          `json:"transfer_uuid"`
+	TransferUuid       string          `json:"transfer_uuid"`
 	Type               string          `json:"type"`
 	Amount             float64         `json:"amount"`
 	Asset              string          `json:"asset"`
@@ -250,12 +250,12 @@ type Transfer struct {
 	ToPortfolio        PortfolioSubset `json:"to_portfolio"`
 	FromAddress        float64         `json:"from_address"`
 	ToAddress          float64         `json:"to_address"`
-	FromCBAccount      string          `json:"from_cb_account"`
-	ToCBAccount        string          `json:"to_cb_account"`
-	FromCounterpartyID string          `json:"from_counterparty_id"`
-	ToCounterpartyID   string          `json:"to_counterparty_id"`
-	InstrumentID       int64           `json:"instrument_id"`
-	PositionID         string          `json:"position_id"`
+	FromCbAccount      string          `json:"from_cb_account"`
+	ToCbAccount        string          `json:"to_cb_account"`
+	FromCounterpartyId string          `json:"from_counterparty_id"`
+	ToCounterpartyId   string          `json:"to_counterparty_id"`
+	InstrumentId       int64           `json:"instrument_id"`
+	PositionId         string          `json:"position_id"`
 }
 
 type Address struct {

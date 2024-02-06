@@ -22,8 +22,8 @@ import (
 )
 
 type UpdatePortfolioRequest struct {
-	Name      string `json:"name"`
-	Portfolio string `json:"portfolio"`
+	Name        string `json:"name"`
+	PortfolioId string `json:"portfolio"`
 }
 
 type UpdatePortfolioResponse struct {
@@ -36,7 +36,7 @@ func (c Client) UpdatePortfolio(
 	request *UpdatePortfolioRequest,
 ) (*UpdatePortfolioResponse, error) {
 
-	path := fmt.Sprintf("/portfolios/%s", request.Portfolio)
+	path := fmt.Sprintf("/portfolios/%s", request.PortfolioId)
 
 	response := &UpdatePortfolioResponse{Request: request}
 

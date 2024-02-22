@@ -35,7 +35,6 @@ func (c *Client) BaseUrl(u string) *Client {
 }
 
 func NewClient(credentials *Credentials, httpClient http.Client) *Client {
-
 	baseUrl := os.Getenv("INTX_BASE_URL")
 	if baseUrl == "" {
 		baseUrl = defaultV1ApiBaseUrl

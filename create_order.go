@@ -18,6 +18,7 @@ package intx
 
 import (
 	"context"
+	"github.com/coinbase-samples/core-go"
 )
 
 type CreateOrderRequest struct {
@@ -41,7 +42,7 @@ type CreateOrderResponse struct {
 	Request *CreateOrderRequest `json:"request"`
 }
 
-func (c Client) CreateOrder(
+func (c *Client) CreateOrder(
 	ctx context.Context,
 	request *CreateOrderRequest,
 ) (*CreateOrderResponse, error) {
@@ -50,7 +51,7 @@ func (c Client) CreateOrder(
 
 	response := &CreateOrderResponse{Request: request}
 
-	if err := post(ctx, c, path, emptyQueryParams, request, &response.Order); err != nil {
+	if err := core.Post(ctx, c, path, core.EmptyQueryParams, request, &response.Order, addIntxHeaders); err != nil {
 		return nil, err
 	}
 

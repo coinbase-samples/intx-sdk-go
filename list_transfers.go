@@ -19,6 +19,7 @@ package intx
 import (
 	"context"
 	"fmt"
+	"github.com/coinbase-samples/core-go"
 )
 
 type ListTransfersRequest struct {
@@ -38,7 +39,7 @@ type ListTransfersResponse struct {
 	Request    *ListTransfersRequest `json:"request"`
 }
 
-func (c Client) ListTransfers(
+func (c *Client) ListTransfers(
 	ctx context.Context,
 	request *ListTransfersRequest,
 ) (*ListTransfersResponse, error) {
@@ -70,7 +71,7 @@ func (c Client) ListTransfers(
 
 	response := &ListTransfersResponse{Request: request}
 
-	if err := get(ctx, c, path, queryParams, nil, &response.Transfers); err != nil {
+	if err := core.Get(ctx, c, path, queryParams, nil, &response.Transfers, addIntxHeaders); err != nil {
 		return nil, err
 	}
 

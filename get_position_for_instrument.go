@@ -19,6 +19,7 @@ package intx
 import (
 	"context"
 	"fmt"
+	"github.com/coinbase-samples/core-go"
 )
 
 type GetInstrumentPositionRequest struct {
@@ -31,7 +32,7 @@ type GetInstrumentPositionResponse struct {
 	Request   *GetInstrumentPositionRequest `json:"request"`
 }
 
-func (c Client) GetInstrumentPosition(
+func (c *Client) GetInstrumentPosition(
 	ctx context.Context,
 	request *GetInstrumentPositionRequest,
 ) (*GetInstrumentPositionResponse, error) {
@@ -40,7 +41,7 @@ func (c Client) GetInstrumentPosition(
 
 	response := &GetInstrumentPositionResponse{Request: request}
 
-	if err := get(ctx, c, path, emptyQueryParams, nil, response); err != nil {
+	if err := core.Get(ctx, c, path, core.EmptyQueryParams, nil, response, addIntxHeaders); err != nil {
 		return nil, err
 	}
 

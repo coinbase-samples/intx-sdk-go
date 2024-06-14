@@ -19,6 +19,7 @@ package intx
 import (
 	"context"
 	"fmt"
+	"github.com/coinbase-samples/core-go"
 )
 
 type UpdatePortfolioRequest struct {
@@ -31,7 +32,7 @@ type UpdatePortfolioResponse struct {
 	Request   *UpdatePortfolioRequest `json:"request"`
 }
 
-func (c Client) UpdatePortfolio(
+func (c *Client) UpdatePortfolio(
 	ctx context.Context,
 	request *UpdatePortfolioRequest,
 ) (*UpdatePortfolioResponse, error) {
@@ -40,7 +41,7 @@ func (c Client) UpdatePortfolio(
 
 	response := &UpdatePortfolioResponse{Request: request}
 
-	if err := put(ctx, c, path, emptyQueryParams, request, &response.Portfolio); err != nil {
+	if err := core.Put(ctx, c, path, core.EmptyQueryParams, request, &response.Portfolio, addIntxHeaders); err != nil {
 		return nil, err
 	}
 

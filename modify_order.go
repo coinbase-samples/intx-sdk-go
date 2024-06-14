@@ -19,6 +19,7 @@ package intx
 import (
 	"context"
 	"fmt"
+	"github.com/coinbase-samples/core-go"
 )
 
 type ModifyOrderRequest struct {
@@ -35,7 +36,7 @@ type ModifyOrderResponse struct {
 	Request *ModifyOrderRequest
 }
 
-func (c Client) ModifyOrder(
+func (c *Client) ModifyOrder(
 	ctx context.Context,
 	request *ModifyOrderRequest,
 ) (*ModifyOrderResponse, error) {
@@ -60,7 +61,7 @@ func (c Client) ModifyOrder(
 
 	response := &ModifyOrderResponse{Request: request}
 
-	if err := put(ctx, c, path, emptyQueryParams, body, &response.Order); err != nil {
+	if err := core.Put(ctx, c, path, core.EmptyQueryParams, body, &response.Order, addIntxHeaders); err != nil {
 		return nil, err
 	}
 

@@ -18,6 +18,7 @@ package intx
 
 import (
 	"context"
+	"github.com/coinbase-samples/core-go"
 )
 
 type CancelOrdersRequest struct {
@@ -30,7 +31,7 @@ type CancelOrdersResponse struct {
 	Request *CancelOrdersRequest
 }
 
-func (c Client) CancelOrders(
+func (c *Client) CancelOrders(
 	ctx context.Context,
 	request *CancelOrdersRequest,
 ) (*CancelOrdersResponse, error) {
@@ -45,7 +46,7 @@ func (c Client) CancelOrders(
 
 	response := &CancelOrdersResponse{Request: request}
 
-	if err := del(ctx, c, path, queryParams, nil, &response.Order); err != nil {
+	if err := core.Delete(ctx, c, path, queryParams, nil, &response.Order, addIntxHeaders); err != nil {
 		return nil, err
 	}
 

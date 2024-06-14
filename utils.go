@@ -17,28 +17,8 @@
 package intx
 
 import (
-	"crypto/hmac"
-	"crypto/sha256"
-	"encoding/base64"
 	"fmt"
-	"log"
 )
-
-func sign(method, path string, t int64, signingKey string, body []byte) string {
-	key, err := base64.StdEncoding.DecodeString(signingKey)
-	if err != nil {
-		log.Fatalf("Error decoding signing key: %v", err)
-	}
-
-	message := fmt.Sprintf("%d%s%s", t, method, path)
-	if len(body) > 0 {
-		message += string(body)
-	}
-
-	h := hmac.New(sha256.New, key)
-	h.Write([]byte(message))
-	return base64.StdEncoding.EncodeToString(h.Sum(nil))
-}
 
 func appendQueryParam(queryParams, key, value string) string {
 	if queryParams == "" {

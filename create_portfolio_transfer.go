@@ -18,6 +18,7 @@ package intx
 
 import (
 	"context"
+	"github.com/coinbase-samples/core-go"
 )
 
 type CreatePortfolioTransferRequest struct {
@@ -32,7 +33,7 @@ type CreatePortfolioTransferResponse struct {
 	Request *CreatePortfolioTransferRequest `json:"request"`
 }
 
-func (c Client) CreatePortfolioTransfer(
+func (c *Client) CreatePortfolioTransfer(
 	ctx context.Context,
 	request *CreatePortfolioTransferRequest,
 ) (*CreatePortfolioTransferResponse, error) {
@@ -41,7 +42,7 @@ func (c Client) CreatePortfolioTransfer(
 
 	response := &CreatePortfolioTransferResponse{Request: request}
 
-	if err := post(ctx, c, path, emptyQueryParams, request, &response); err != nil {
+	if err := core.Post(ctx, c, path, core.EmptyQueryParams, request, &response, addIntxHeaders); err != nil {
 		return nil, err
 	}
 

@@ -1,2 +1,4 @@
+github.com/coinbase-samples/core-go v0.1.0 h1:h78EMNiU2cS/bd9shakMw5mdZcKnRGNkZQ2ACIC13j4=
+github.com/coinbase-samples/core-go v0.1.0/go.mod h1:zPGPdPptHekTgF7tjWmfK/MJzUEFKnBtAQ4wCR8UFu8=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
 github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=

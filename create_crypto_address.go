@@ -18,6 +18,7 @@ package intx
 
 import (
 	"context"
+	"github.com/coinbase-samples/core-go"
 )
 
 type CreateCryptoAddressRequest struct {
@@ -31,7 +32,7 @@ type CreateCryptoAddressResponse struct {
 	Request *CreateCryptoAddressRequest `json:"request"`
 }
 
-func (c Client) CreateCryptoAddress(
+func (c *Client) CreateCryptoAddress(
 	ctx context.Context,
 	request *CreateCryptoAddressRequest,
 ) (*CreateCryptoAddressResponse, error) {
@@ -40,7 +41,7 @@ func (c Client) CreateCryptoAddress(
 
 	response := &CreateCryptoAddressResponse{Request: request}
 
-	if err := post(ctx, c, path, emptyQueryParams, request, &response); err != nil {
+	if err := core.Post(ctx, c, path, core.EmptyQueryParams, request, &response, addIntxHeaders); err != nil {
 		return nil, err
 	}
 

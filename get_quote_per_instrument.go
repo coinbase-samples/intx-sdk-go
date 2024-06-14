@@ -19,6 +19,7 @@ package intx
 import (
 	"context"
 	"fmt"
+	"github.com/coinbase-samples/core-go"
 )
 
 type GetInstrumentQuoteRequest struct {
@@ -30,7 +31,7 @@ type GetInstrumentQuoteResponse struct {
 	Request         *GetInstrumentQuoteRequest `json:"request"`
 }
 
-func (c Client) GetInstrumentQuote(
+func (c *Client) GetInstrumentQuote(
 	ctx context.Context,
 	request *GetInstrumentQuoteRequest,
 ) (*GetInstrumentQuoteResponse, error) {
@@ -39,7 +40,7 @@ func (c Client) GetInstrumentQuote(
 
 	response := &GetInstrumentQuoteResponse{Request: request}
 
-	if err := get(ctx, c, path, emptyQueryParams, nil, &response.InstrumentQuote); err != nil {
+	if err := core.Get(ctx, c, path, core.EmptyQueryParams, nil, &response.InstrumentQuote, addIntxHeaders); err != nil {
 		return nil, err
 	}
 

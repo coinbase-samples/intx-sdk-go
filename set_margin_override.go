@@ -18,6 +18,7 @@ package intx
 
 import (
 	"context"
+	"github.com/coinbase-samples/core-go"
 )
 
 type SetMarginOverrideRequest struct {
@@ -30,7 +31,7 @@ type SetMarginOverrideResponse struct {
 	Request        *SetMarginOverrideRequest `json:"request"`
 }
 
-func (c Client) SetMarginOverride(
+func (c *Client) SetMarginOverride(
 	ctx context.Context,
 	request *SetMarginOverrideRequest,
 ) (*SetMarginOverrideResponse, error) {
@@ -39,7 +40,7 @@ func (c Client) SetMarginOverride(
 
 	response := &SetMarginOverrideResponse{Request: request}
 
-	if err := post(ctx, c, path, emptyQueryParams, request, response); err != nil {
+	if err := core.Post(ctx, c, path, core.EmptyQueryParams, request, response, addIntxHeaders); err != nil {
 		return nil, err
 	}
 

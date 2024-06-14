@@ -19,6 +19,7 @@ package intx
 import (
 	"context"
 	"fmt"
+	"github.com/coinbase-samples/core-go"
 )
 
 type GetHistoricalFundingRequest struct {
@@ -30,7 +31,7 @@ type GetHistoricalFundingResponse struct {
 	Request                *GetHistoricalFundingRequest `json:"request"`
 }
 
-func (c Client) GetHistoricalFundingRates(
+func (c *Client) GetHistoricalFundingRates(
 	ctx context.Context,
 	request *GetHistoricalFundingRequest,
 ) (*GetHistoricalFundingResponse, error) {
@@ -39,7 +40,7 @@ func (c Client) GetHistoricalFundingRates(
 
 	response := &GetHistoricalFundingResponse{Request: request}
 
-	if err := get(ctx, c, path, emptyQueryParams, nil, &response.HistoricalFundingRates); err != nil {
+	if err := core.Get(ctx, c, path, core.EmptyQueryParams, nil, &response.HistoricalFundingRates, addIntxHeaders); err != nil {
 		return nil, err
 	}
 

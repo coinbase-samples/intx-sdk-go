@@ -18,6 +18,7 @@ package intx
 
 import (
 	"context"
+	"github.com/coinbase-samples/core-go"
 )
 
 type ValidateCounterpartyIdRequest struct {
@@ -29,7 +30,7 @@ type ValidateCounterpartyIdResponse struct {
 	Request    *ValidateCounterpartyIdRequest `json:"request"`
 }
 
-func (c Client) ValidateCounterpartyId(
+func (c *Client) ValidateCounterpartyId(
 	ctx context.Context,
 	request *ValidateCounterpartyIdRequest,
 ) (*ValidateCounterpartyIdResponse, error) {
@@ -38,7 +39,7 @@ func (c Client) ValidateCounterpartyId(
 
 	response := &ValidateCounterpartyIdResponse{Request: request}
 
-	if err := post(ctx, c, path, emptyQueryParams, request, &response); err != nil {
+	if err := core.Post(ctx, c, path, core.EmptyQueryParams, request, &response, addIntxHeaders); err != nil {
 		return nil, err
 	}
 

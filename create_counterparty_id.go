@@ -18,6 +18,7 @@ package intx
 
 import (
 	"context"
+	"github.com/coinbase-samples/core-go"
 )
 
 type CreateCounterpartyIdRequest struct {
@@ -29,7 +30,7 @@ type CreateCounterpartyIdResponse struct {
 	Request      *CreateCounterpartyIdRequest `json:"request"`
 }
 
-func (c Client) CreateCounterpartyId(
+func (c *Client) CreateCounterpartyId(
 	ctx context.Context,
 	request *CreateCounterpartyIdRequest,
 ) (*CreateCounterpartyIdResponse, error) {
@@ -40,7 +41,7 @@ func (c Client) CreateCounterpartyId(
 
 	response := &CreateCounterpartyIdResponse{Request: request}
 
-	if err := post(ctx, c, path, queryParams, request, &response); err != nil {
+	if err := core.Post(ctx, c, path, queryParams, request, &response, addIntxHeaders); err != nil {
 		return nil, err
 	}
 

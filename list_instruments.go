@@ -18,6 +18,7 @@ package intx
 
 import (
 	"context"
+	"github.com/coinbase-samples/core-go"
 )
 
 type ListInstrumentsRequest struct{}
@@ -27,7 +28,7 @@ type ListInstrumentsResponse struct {
 	Request     *ListInstrumentsRequest `json:"request"`
 }
 
-func (c Client) ListInstruments(
+func (c *Client) ListInstruments(
 	ctx context.Context,
 	request *ListInstrumentsRequest,
 ) (*ListInstrumentsResponse, error) {
@@ -36,7 +37,7 @@ func (c Client) ListInstruments(
 
 	response := &ListInstrumentsResponse{Request: request}
 
-	if err := get(ctx, c, path, emptyQueryParams, nil, &response.Instruments); err != nil {
+	if err := core.Get(ctx, c, path, core.EmptyQueryParams, nil, &response.Instruments, addIntxHeaders); err != nil {
 		return nil, err
 	}
 

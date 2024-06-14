@@ -30,21 +30,17 @@ type Credentials struct {
 }
 
 func UnmarshalCredentials(b []byte) (*Credentials, error) {
-
 	c := &Credentials{}
 	if err := json.Unmarshal(b, c); err != nil {
 		return nil, err
 	}
-
 	return c, nil
 }
 
 func ReadEnvCredentials(variableName string) (*Credentials, error) {
-
 	v := os.Getenv(variableName)
 	if len(v) == 0 {
 		return nil, fmt.Errorf("%s not set as environment variable", variableName)
 	}
-
 	return UnmarshalCredentials([]byte(v))
 }

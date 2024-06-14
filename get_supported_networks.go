@@ -19,6 +19,7 @@ package intx
 import (
 	"context"
 	"fmt"
+	"github.com/coinbase-samples/core-go"
 )
 
 type GetSupportedNetworksRequest struct {
@@ -30,7 +31,7 @@ type GetSupportedNetworksResponse struct {
 	Request       *GetSupportedNetworksRequest `json:"request"`
 }
 
-func (c Client) GetSupportedNetworks(
+func (c *Client) GetSupportedNetworks(
 	ctx context.Context,
 	request *GetSupportedNetworksRequest,
 ) (*GetSupportedNetworksResponse, error) {
@@ -39,7 +40,7 @@ func (c Client) GetSupportedNetworks(
 
 	response := &GetSupportedNetworksResponse{Request: request}
 
-	if err := get(ctx, c, path, emptyQueryParams, nil, &response.NetworkDetail); err != nil {
+	if err := core.Get(ctx, c, path, core.EmptyQueryParams, nil, &response.NetworkDetail, addIntxHeaders); err != nil {
 		return nil, err
 	}
 

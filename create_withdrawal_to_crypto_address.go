@@ -18,6 +18,7 @@ package intx
 
 import (
 	"context"
+	"github.com/coinbase-samples/core-go"
 )
 
 type CreateWithdrawalToCryptoAddressRequest struct {
@@ -35,7 +36,7 @@ type CreateWithdrawalToCryptoAddressResponse struct {
 	Request *CreateWithdrawalToCryptoAddressRequest `json:"request"`
 }
 
-func (c Client) CreateWithdrawalToCryptoAddress(
+func (c *Client) CreateWithdrawalToCryptoAddress(
 	ctx context.Context,
 	request *CreateWithdrawalToCryptoAddressRequest,
 ) (*CreateWithdrawalToCryptoAddressResponse, error) {
@@ -44,7 +45,7 @@ func (c Client) CreateWithdrawalToCryptoAddress(
 
 	response := &CreateWithdrawalToCryptoAddressResponse{Request: request}
 
-	if err := post(ctx, c, path, emptyQueryParams, request, &response); err != nil {
+	if err := core.Post(ctx, c, path, core.EmptyQueryParams, request, &response, addIntxHeaders); err != nil {
 		return nil, err
 	}
 

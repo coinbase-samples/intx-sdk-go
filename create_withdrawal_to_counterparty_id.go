@@ -18,6 +18,7 @@ package intx
 
 import (
 	"context"
+	"github.com/coinbase-samples/core-go"
 )
 
 type CreateWithdrawalToCounterpartyIdRequest struct {
@@ -33,7 +34,7 @@ type CreateWithdrawalToCounterpartyIdResponse struct {
 	Request    *CreateWithdrawalToCounterpartyIdRequest `json:"request"`
 }
 
-func (c Client) CreateWithdrawalToCounterpartyId(
+func (c *Client) CreateWithdrawalToCounterpartyId(
 	ctx context.Context,
 	request *CreateWithdrawalToCounterpartyIdRequest,
 ) (*CreateWithdrawalToCounterpartyIdResponse, error) {
@@ -42,7 +43,7 @@ func (c Client) CreateWithdrawalToCounterpartyId(
 
 	response := &CreateWithdrawalToCounterpartyIdResponse{Request: request}
 
-	if err := post(ctx, c, path, emptyQueryParams, request, &response); err != nil {
+	if err := core.Post(ctx, c, path, core.EmptyQueryParams, request, &response, addIntxHeaders); err != nil {
 		return nil, err
 	}
 

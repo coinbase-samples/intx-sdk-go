@@ -19,6 +19,7 @@ package intx
 import (
 	"context"
 	"fmt"
+	"github.com/coinbase-samples/core-go"
 )
 
 type GetOrderDetailsRequest struct {
@@ -31,7 +32,7 @@ type GetOrderDetailsResponse struct {
 	Request *GetOrderDetailsRequest
 }
 
-func (c Client) GetOrderDetails(
+func (c *Client) GetOrderDetails(
 	ctx context.Context,
 	request *GetOrderDetailsRequest,
 ) (*GetOrderDetailsResponse, error) {
@@ -42,7 +43,7 @@ func (c Client) GetOrderDetails(
 
 	response := &GetOrderDetailsResponse{Request: request}
 
-	if err := get(ctx, c, path, queryParams, nil, &response.Order); err != nil {
+	if err := core.Get(ctx, c, path, queryParams, nil, &response.Order, addIntxHeaders); err != nil {
 		return nil, err
 	}
 

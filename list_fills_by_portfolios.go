@@ -19,6 +19,7 @@ package intx
 import (
 	"context"
 	"fmt"
+	"github.com/coinbase-samples/core-go"
 )
 
 type ListFillsByPortfoliosRequest struct {
@@ -38,7 +39,7 @@ type ListFillsByPortfoliosResponse struct {
 	Request    *ListFillsByPortfoliosRequest `json:"request"`
 }
 
-func (c Client) ListFillsByPortfolios(
+func (c *Client) ListFillsByPortfolios(
 	ctx context.Context,
 	request *ListFillsByPortfoliosRequest,
 ) (*ListFillsByPortfoliosResponse, error) {
@@ -70,7 +71,7 @@ func (c Client) ListFillsByPortfolios(
 
 	response := &ListFillsByPortfoliosResponse{Request: request}
 
-	if err := get(ctx, c, path, queryParams, nil, response); err != nil {
+	if err := core.Get(ctx, c, path, queryParams, nil, response, addIntxHeaders); err != nil {
 		return nil, err
 	}
 

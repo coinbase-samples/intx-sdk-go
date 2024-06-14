@@ -19,6 +19,7 @@ package intx
 import (
 	"context"
 	"fmt"
+	"github.com/coinbase-samples/core-go"
 )
 
 type GetAssetBalanceRequest struct {
@@ -31,7 +32,7 @@ type GetAssetBalanceResponse struct {
 	Request *GetAssetBalanceRequest `json:"request"`
 }
 
-func (c Client) GetAssetBalance(
+func (c *Client) GetAssetBalance(
 	ctx context.Context,
 	request *GetAssetBalanceRequest,
 ) (*GetAssetBalanceResponse, error) {
@@ -40,7 +41,7 @@ func (c Client) GetAssetBalance(
 
 	response := &GetAssetBalanceResponse{Request: request}
 
-	if err := get(ctx, c, path, emptyQueryParams, nil, &response.Balance); err != nil {
+	if err := core.Get(ctx, c, path, core.EmptyQueryParams, nil, &response.Balance, addIntxHeaders); err != nil {
 		return nil, err
 	}
 

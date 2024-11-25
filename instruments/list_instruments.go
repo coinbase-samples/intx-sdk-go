@@ -38,7 +38,7 @@ func (s instrumentsServiceImpl) ListInstruments(
 
 	path := "/instruments"
 
-	response := &ListInstrumentsResponse{Request: request}
+	response := &ListInstrumentsResponse{Request: request, Instruments: make([]*model.Instrument, 0)}
 
 	if err := core.HttpGet(
 		ctx,

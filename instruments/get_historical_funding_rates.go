@@ -30,8 +30,8 @@ type GetHistoricalFundingRequest struct {
 }
 
 type GetHistoricalFundingResponse struct {
-	HistoricalFundingRates *model.HistoricalFundingRate `json:"historical_funding_rates"`
-	Request                *GetHistoricalFundingRequest `json:"request"`
+	HistoricalFundingRates []*model.HistoricalFundingRate `json:"historical_funding_rates"`
+	Request                *GetHistoricalFundingRequest   `json:"request"`
 }
 
 func (s instrumentsServiceImpl) GetHistoricalFundingRates(
@@ -41,7 +41,10 @@ func (s instrumentsServiceImpl) GetHistoricalFundingRates(
 
 	path := fmt.Sprintf("/instruments/%s/funding", request.InstrumentId)
 
-	response := &GetHistoricalFundingResponse{Request: request}
+	response := &GetHistoricalFundingResponse{
+		Request:                request,
+		HistoricalFundingRates: make([]*model.HistoricalFundingRate, 0),
+	}
 
 	if err := core.HttpGet(
 		ctx,

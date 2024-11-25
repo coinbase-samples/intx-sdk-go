@@ -38,7 +38,7 @@ func (s assetsServiceImpl) ListAssets(
 
 	path := "/assets"
 
-	response := &ListAssetsResponse{Request: request}
+	response := &ListAssetsResponse{Request: request, Assets: make([]*model.Asset, 0)}
 
 	if err := core.HttpGet(
 		ctx,

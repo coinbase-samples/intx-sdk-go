@@ -30,7 +30,7 @@ type GetSupportedNetworksRequest struct {
 }
 
 type GetSupportedNetworksResponse struct {
-	NetworkDetail []model.Network              `json:"network_detail"`
+	NetworkDetail []*model.Network             `json:"network_detail"`
 	Request       *GetSupportedNetworksRequest `json:"request"`
 }
 
@@ -41,7 +41,7 @@ func (s assetsServiceImpl) GetSupportedNetworks(
 
 	path := fmt.Sprintf("/assets/%s/networks", request.AssetId)
 
-	response := &GetSupportedNetworksResponse{Request: request}
+	response := &GetSupportedNetworksResponse{Request: request, NetworkDetail: make([]*model.Network, 0)}
 
 	if err := core.HttpGet(
 		ctx,

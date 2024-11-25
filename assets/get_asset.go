@@ -41,7 +41,7 @@ func (s assetsServiceImpl) GetAsset(
 
 	path := fmt.Sprintf("/assets/%s", request.AssetId)
 
-	response := &GetAssetResponse{Request: request}
+	response := &GetAssetResponse{Request: request, AssetDetail: &model.Asset{}}
 
 	if err := core.HttpGet(
 		ctx,

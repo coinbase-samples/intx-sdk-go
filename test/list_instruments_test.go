@@ -18,12 +18,14 @@ package test
 
 import (
 	"context"
-	"github.com/coinbase-samples/intx-sdk-go"
 	"testing"
 	"time"
+
+	"github.com/coinbase-samples/intx-sdk-go/instruments"
 )
 
 func TestListInstruments(t *testing.T) {
+
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
@@ -32,7 +34,9 @@ func TestListInstruments(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	response, err := client.ListInstruments(ctx, &intx.ListInstrumentsRequest{})
+	service := instruments.NewInstrumentsService(client)
+
+	response, err := service.ListInstruments(ctx, &instruments.ListInstrumentsRequest{})
 	if err != nil {
 		t.Fatalf("ListInstruments returned an error: %v", err)
 	}

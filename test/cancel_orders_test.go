@@ -18,9 +18,10 @@ package test
 
 import (
 	"context"
-	"github.com/coinbase-samples/intx-sdk-go"
 	"testing"
 	"time"
+
+	"github.com/coinbase-samples/intx-sdk-go/orders"
 )
 
 func TestCancelOrders(t *testing.T) {
@@ -32,8 +33,10 @@ func TestCancelOrders(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	response, err := client.CancelOrders(ctx, &intx.CancelOrdersRequest{
-		PortfolioId:  client.Credentials.PortfolioId,
+	service := orders.NewOrdersService(client)
+
+	response, err := service.CancelOrders(ctx, &orders.CancelOrdersRequest{
+		PortfolioId:  client.Credentials().PortfolioId,
 		InstrumentId: "BTC-USDC",
 	})
 	if err != nil {

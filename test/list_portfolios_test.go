@@ -18,23 +18,25 @@ package test
 
 import (
 	"context"
-	"github.com/coinbase-samples/intx-sdk-go"
 	"testing"
 	"time"
+
+	"github.com/coinbase-samples/intx-sdk-go/portfolios"
 )
 
 func TestListPortfolios(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-
 	client, err := newLiveTestClient()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	request := &intx.ListPortfoliosRequest{}
+	request := &portfolios.ListPortfoliosRequest{}
 
-	response, err := client.ListPortfolios(ctx, request)
+	service := portfolios.NewPortfoliosService(client)
+
+	response, err := service.ListPortfolios(ctx, request)
 	if err != nil {
 		t.Fatalf("ListPortfolios returned an error: %v", err)
 	}

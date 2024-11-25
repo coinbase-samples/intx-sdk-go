@@ -18,9 +18,10 @@ package test
 
 import (
 	"context"
-	"github.com/coinbase-samples/intx-sdk-go"
 	"testing"
 	"time"
+
+	"github.com/coinbase-samples/intx-sdk-go/assets"
 )
 
 func TestGetAsset(t *testing.T) {
@@ -33,7 +34,9 @@ func TestGetAsset(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	response, err := client.GetAsset(ctx, &intx.GetAssetRequest{
+	service := assets.NewAssetsService(client)
+
+	response, err := service.GetAsset(ctx, &assets.GetAssetRequest{
 		AssetId: "BTC",
 	})
 

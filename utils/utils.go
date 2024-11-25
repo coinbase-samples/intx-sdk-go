@@ -18,23 +18,26 @@ package utils
 
 import (
 	"fmt"
+
+	"github.com/coinbase-samples/core-go"
+	"github.com/coinbase-samples/intx-sdk-go/model"
 )
 
-func AppendPaginationParams(v string, p *PaginationParams) string {
+func AppendPaginationParams(v string, p *model.PaginationParams) string {
 	if p == nil {
 		return v
 	}
 
 	if p.RefDatetime != "" {
-		v = appendQueryParam(v, "ref_datetime", p.RefDatetime)
+		v = core.AppendHttpQueryParam(v, "ref_datetime", p.RefDatetime)
 	}
 
 	if p.ResultLimit > 0 {
-		v = appendQueryParam(v, "result_limit", fmt.Sprint(p.ResultLimit))
+		v = core.AppendHttpQueryParam(v, "result_limit", fmt.Sprint(p.ResultLimit))
 	}
 
 	if p.ResultOffset > 0 {
-		v = appendQueryParam(v, "result_offset", fmt.Sprint(p.ResultOffset))
+		v = core.AppendHttpQueryParam(v, "result_offset", fmt.Sprint(p.ResultOffset))
 	}
 
 	return v

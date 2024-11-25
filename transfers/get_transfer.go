@@ -30,7 +30,7 @@ type GetTransferRequest struct {
 }
 
 type GetTransferResponse struct {
-	Transfers []model.Transfer    `json:"results"`
+	Transfers []*model.Transfer   `json:"results"`
 	Request   *GetTransferRequest `json:"request"`
 }
 
@@ -41,7 +41,7 @@ func (s transfersServiceImpl) GetTransfer(
 
 	path := fmt.Sprintf("/transfers/%s", request.TransferUuid)
 
-	response := &GetTransferResponse{Request: request}
+	response := &GetTransferResponse{Request: request, Transfers: make([]*model.Transfer, 0)}
 
 	if err := core.HttpGet(
 		ctx,

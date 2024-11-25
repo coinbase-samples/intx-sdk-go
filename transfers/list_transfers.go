@@ -38,9 +38,9 @@ type ListTransfersRequest struct {
 }
 
 type ListTransfersResponse struct {
-	Pagination model.PaginationSubset `json:"pagination"`
-	Transfers  []model.Transfer       `json:"results"`
-	Request    *ListTransfersRequest  `json:"request"`
+	Pagination *model.PaginationSubset `json:"pagination"`
+	Transfers  []*model.Transfer       `json:"results"`
+	Request    *ListTransfersRequest   `json:"request"`
 }
 
 func (s transfersServiceImpl) ListTransfers(

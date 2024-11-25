@@ -38,9 +38,9 @@ type ListOpenOrdersRequest struct {
 }
 
 type ListOpenOrdersResponse struct {
-	Pagination model.PaginationParams `json:"pagination"`
-	Results    []model.Order          `json:"results"`
-	Request    *ListOpenOrdersRequest `json:"request"`
+	Pagination *model.PaginationParams `json:"pagination"`
+	Results    []*model.Order          `json:"results"`
+	Request    *ListOpenOrdersRequest  `json:"request"`
 }
 
 func (s ordersServiceImpl) ListOpenOrders(

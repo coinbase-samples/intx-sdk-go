@@ -52,7 +52,7 @@ func (s ordersServiceImpl) CreateOrder(
 
 	path := "/orders"
 
-	response := &CreateOrderResponse{Request: request}
+	response := &CreateOrderResponse{Request: request, Order: &model.Order{}}
 
 	if err := core.HttpPost(
 		ctx,

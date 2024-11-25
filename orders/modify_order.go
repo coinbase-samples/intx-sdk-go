@@ -62,7 +62,7 @@ func (s ordersServiceImpl) ModifyOrder(
 		Size:          request.Size,
 	}
 
-	response := &ModifyOrderResponse{Request: request}
+	response := &ModifyOrderResponse{Request: request, Order: &model.Order{}}
 
 	if err := core.HttpPut(
 		ctx,

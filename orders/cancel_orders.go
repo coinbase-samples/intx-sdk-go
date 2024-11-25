@@ -30,7 +30,7 @@ type CancelOrdersRequest struct {
 }
 
 type CancelOrdersResponse struct {
-	Orders  []model.Order
+	Orders  []*model.Order
 	Request *CancelOrdersRequest
 }
 
@@ -47,7 +47,7 @@ func (s ordersServiceImpl) CancelOrders(
 		queryParams = core.AppendHttpQueryParam(queryParams, "instrument", request.InstrumentId)
 	}
 
-	response := &CancelOrdersResponse{Request: request}
+	response := &CancelOrdersResponse{Request: request, Orders: make([]*model.Order, 0)}
 
 	if err := core.HttpDelete(
 		ctx,

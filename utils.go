@@ -14,21 +14,13 @@
  * limitations under the License.
  */
 
-package intx
+package utils
 
 import (
 	"fmt"
 )
 
-func appendQueryParam(queryParams, key, value string) string {
-	if queryParams == "" {
-		return "?" + key + "=" + value
-	} else {
-		return queryParams + "&" + key + "=" + value
-	}
-}
-
-func appendPaginationParams(v string, p *PaginationParams) string {
+func AppendPaginationParams(v string, p *PaginationParams) string {
 	if p == nil {
 		return v
 	}

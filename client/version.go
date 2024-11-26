@@ -14,39 +14,6 @@
  * limitations under the License.
  */
 
-package test
+package client
 
-import (
-	"context"
-	"testing"
-	"time"
-
-	"github.com/coinbase-samples/intx-sdk-go/assets"
-)
-
-func TestListAssets(t *testing.T) {
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-
-	client, err := newLiveTestClient()
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	service := assets.NewAssetsService(client)
-
-	response, err := service.ListAssets(ctx, &assets.ListAssetsRequest{})
-
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if response == nil {
-		t.Fatal(err)
-	}
-
-	if len(response.Assets) == 0 {
-		t.Fatal("expected assets in get")
-	}
-}
+const sdkVersion = "0.2.0"

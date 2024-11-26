@@ -18,9 +18,10 @@ package test
 
 import (
 	"context"
-	"github.com/coinbase-samples/intx-sdk-go"
 	"testing"
 	"time"
+
+	"github.com/coinbase-samples/intx-sdk-go/assets"
 )
 
 func TestGetSupportedNetworks(t *testing.T) {
@@ -34,7 +35,9 @@ func TestGetSupportedNetworks(t *testing.T) {
 
 	asset := "ETH"
 
-	response, err := client.GetSupportedNetworks(ctx, &intx.GetSupportedNetworksRequest{
+	service := assets.NewAssetsService(client)
+
+	response, err := service.GetSupportedNetworks(ctx, &assets.GetSupportedNetworksRequest{
 		AssetId: asset,
 	})
 	if err != nil {

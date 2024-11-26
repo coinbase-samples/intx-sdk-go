@@ -18,10 +18,11 @@ package test
 
 import (
 	"context"
-	"github.com/coinbase-samples/intx-sdk-go"
-	"github.com/google/uuid"
 	"testing"
 	"time"
+
+	"github.com/coinbase-samples/intx-sdk-go/orders"
+	"github.com/google/uuid"
 )
 
 func TestCreateOrder(t *testing.T) {
@@ -39,10 +40,12 @@ func TestCreateOrder(t *testing.T) {
 		t.Fatal("could not generate UUID:", err)
 	}
 
-	response, err := client.CreateOrder(
+	service := orders.NewOrdersService(client)
+
+	response, err := service.CreateOrder(
 		ctx,
-		&intx.CreateOrderRequest{
-			PortfolioId:   client.Credentials.PortfolioId,
+		&orders.CreateOrderRequest{
+			PortfolioId:   client.Credentials().PortfolioId,
 			ClientOrderId: clientOrderId.String(),
 			Side:          "BUY",
 			InstrumentId:  "b3469e0b-222c-4f8a-9f68-1f9e44d7e5e0",

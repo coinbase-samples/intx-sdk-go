@@ -19,26 +19,32 @@ package test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/coinbase-samples/intx-sdk-go"
-	"net/http"
 	"os"
+
+	"github.com/coinbase-samples/intx-sdk-go/client"
+	"github.com/coinbase-samples/intx-sdk-go/credentials"
 )
 
-func newLiveTestClient() (*intx.Client, error) {
+func newLiveTestClient() (client.RestClient, error) {
 
 	credentials, err := loadCredentialsFromEnv()
 	if err != nil {
 		return nil, err
 	}
 
-	client := intx.NewClient(credentials, http.Client{})
+	httpClient, err := client.DefaultHttpClient()
+	if err != nil {
+		return nil, err
+	}
+
+	client := client.NewRestClient(credentials, httpClient).SetHttpBaseUrl("https://api-n5e1.coinbase.com/api/v1")
 	return client, nil
 
 }
 
-func loadCredentialsFromEnv() (*intx.Credentials, error) {
+func loadCredentialsFromEnv() (*credentials.Credentials, error) {
 
-	credentials := &intx.Credentials{}
+	credentials := &credentials.Credentials{}
 	if err := json.Unmarshal([]byte(os.Getenv("INTX_CREDENTIALS")), credentials); err != nil {
 		return nil, fmt.Errorf("unable to deserialize intx credentials JSON: %w", err)
 	}

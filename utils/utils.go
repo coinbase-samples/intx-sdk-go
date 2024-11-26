@@ -14,39 +14,31 @@
  * limitations under the License.
  */
 
-package test
+package utils
 
 import (
-	"context"
-	"testing"
-	"time"
+	"fmt"
 
-	"github.com/coinbase-samples/intx-sdk-go/assets"
+	"github.com/coinbase-samples/core-go"
+	"github.com/coinbase-samples/intx-sdk-go/model"
 )
 
-func TestListAssets(t *testing.T) {
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-
-	client, err := newLiveTestClient()
-	if err != nil {
-		t.Fatal(err)
+func AppendPaginationParams(v string, p *model.PaginationParams) string {
+	if p == nil {
+		return v
 	}
 
-	service := assets.NewAssetsService(client)
-
-	response, err := service.ListAssets(ctx, &assets.ListAssetsRequest{})
-
-	if err != nil {
-		t.Fatal(err)
+	if p.RefDatetime != "" {
+		v = core.AppendHttpQueryParam(v, "ref_datetime", p.RefDatetime)
 	}
 
-	if response == nil {
-		t.Fatal(err)
+	if p.ResultLimit > 0 {
+		v = core.AppendHttpQueryParam(v, "result_limit", fmt.Sprint(p.ResultLimit))
 	}
 
-	if len(response.Assets) == 0 {
-		t.Fatal("expected assets in get")
+	if p.ResultOffset > 0 {
+		v = core.AppendHttpQueryParam(v, "result_offset", fmt.Sprint(p.ResultOffset))
 	}
+
+	return v
 }

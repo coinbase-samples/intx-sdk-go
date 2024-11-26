@@ -41,7 +41,7 @@ func (s portfoliosServiceImpl) GetPortfolioBalances(
 
 	path := fmt.Sprintf("/portfolios/%s/balances", request.PortfolioId)
 
-	response := &GetPortfolioBalancesResponse{Request: request, Balances: make([]*model.Balance, 0)}
+	response := &GetPortfolioBalancesResponse{Request: request}
 
 	if err := core.HttpGet(
 		ctx,
@@ -50,7 +50,7 @@ func (s portfoliosServiceImpl) GetPortfolioBalances(
 		core.EmptyQueryParams,
 		client.DefaultSuccessHttpStatusCodes,
 		request,
-		response.Balances,
+		&response.Balances,
 		s.client.HeadersFunc(),
 	); err != nil {
 		return nil, err

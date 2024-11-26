@@ -38,7 +38,7 @@ func (s assetsServiceImpl) ListAssets(
 
 	path := "/assets"
 
-	response := &ListAssetsResponse{Request: request, Assets: make([]*model.Asset, 0)}
+	response := &ListAssetsResponse{Request: request}
 
 	if err := core.HttpGet(
 		ctx,
@@ -47,7 +47,7 @@ func (s assetsServiceImpl) ListAssets(
 		core.EmptyQueryParams,
 		client.DefaultSuccessHttpStatusCodes,
 		request,
-		response.Assets,
+		&response.Assets,
 		s.client.HeadersFunc(),
 	); err != nil {
 		return nil, err

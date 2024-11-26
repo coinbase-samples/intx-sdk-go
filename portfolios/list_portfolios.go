@@ -38,7 +38,7 @@ func (s portfoliosServiceImpl) ListPortfolios(
 
 	path := "/portfolios"
 
-	response := &ListPortfoliosResponse{Request: request, Portfolios: make([]*model.Portfolio, 0)}
+	response := &ListPortfoliosResponse{Request: request}
 
 	if err := core.HttpGet(
 		ctx,
@@ -47,7 +47,7 @@ func (s portfoliosServiceImpl) ListPortfolios(
 		core.EmptyQueryParams,
 		client.DefaultSuccessHttpStatusCodes,
 		request,
-		response.Portfolios,
+		&response.Portfolios,
 		s.client.HeadersFunc(),
 	); err != nil {
 		return nil, err

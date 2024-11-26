@@ -41,7 +41,7 @@ func (s transfersServiceImpl) GetTransfer(
 
 	path := fmt.Sprintf("/transfers/%s", request.TransferUuid)
 
-	response := &GetTransferResponse{Request: request, Transfers: make([]*model.Transfer, 0)}
+	response := &GetTransferResponse{Request: request}
 
 	if err := core.HttpGet(
 		ctx,
@@ -50,7 +50,7 @@ func (s transfersServiceImpl) GetTransfer(
 		core.EmptyQueryParams,
 		client.DefaultSuccessHttpStatusCodes,
 		request,
-		response.Transfers,
+		&response.Transfers,
 		s.client.HeadersFunc(),
 	); err != nil {
 		return nil, err

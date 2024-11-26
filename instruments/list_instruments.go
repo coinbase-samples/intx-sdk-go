@@ -38,7 +38,7 @@ func (s instrumentsServiceImpl) ListInstruments(
 
 	path := "/instruments"
 
-	response := &ListInstrumentsResponse{Request: request, Instruments: make([]*model.Instrument, 0)}
+	response := &ListInstrumentsResponse{Request: request}
 
 	if err := core.HttpGet(
 		ctx,
@@ -47,7 +47,7 @@ func (s instrumentsServiceImpl) ListInstruments(
 		core.EmptyQueryParams,
 		client.DefaultSuccessHttpStatusCodes,
 		request,
-		response.Instruments,
+		&response.Instruments,
 		s.client.HeadersFunc(),
 	); err != nil {
 		return nil, err

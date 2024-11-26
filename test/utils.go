@@ -37,7 +37,7 @@ func newLiveTestClient() (client.RestClient, error) {
 		return nil, err
 	}
 
-	client := client.NewRestClient(credentials, httpClient)
+	client := client.NewRestClient(credentials, httpClient).SetHttpBaseUrl("https://api-n5e1.coinbase.com/api/v1")
 	return client, nil
 
 }

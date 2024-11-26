@@ -41,7 +41,7 @@ func (s assetsServiceImpl) GetSupportedNetworks(
 
 	path := fmt.Sprintf("/assets/%s/networks", request.AssetId)
 
-	response := &GetSupportedNetworksResponse{Request: request, NetworkDetail: make([]*model.Network, 0)}
+	response := &GetSupportedNetworksResponse{Request: request}
 
 	if err := core.HttpGet(
 		ctx,
@@ -50,7 +50,7 @@ func (s assetsServiceImpl) GetSupportedNetworks(
 		core.EmptyQueryParams,
 		client.DefaultSuccessHttpStatusCodes,
 		request,
-		response.NetworkDetail,
+		&response.NetworkDetail,
 		s.client.HeadersFunc(),
 	); err != nil {
 		return nil, err

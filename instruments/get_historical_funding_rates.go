@@ -41,10 +41,7 @@ func (s instrumentsServiceImpl) GetHistoricalFundingRates(
 
 	path := fmt.Sprintf("/instruments/%s/funding", request.InstrumentId)
 
-	response := &GetHistoricalFundingResponse{
-		Request:                request,
-		HistoricalFundingRates: make([]*model.HistoricalFundingRate, 0),
-	}
+	response := &GetHistoricalFundingResponse{Request: request}
 
 	if err := core.HttpGet(
 		ctx,
@@ -53,7 +50,7 @@ func (s instrumentsServiceImpl) GetHistoricalFundingRates(
 		core.EmptyQueryParams,
 		client.DefaultSuccessHttpStatusCodes,
 		request,
-		response.HistoricalFundingRates,
+		&response.HistoricalFundingRates,
 		s.client.HeadersFunc(),
 	); err != nil {
 		return nil, err

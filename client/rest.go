@@ -100,6 +100,7 @@ func AddIntxHeaders(req *http.Request, path string, body []byte, client core.Res
 	req.Header.Add("CB-ACCESS-PASSPHRASE", c.Credentials().Passphrase)
 	req.Header.Add("CB-ACCESS-SIGN", signature)
 	req.Header.Add("CB-ACCESS-TIMESTAMP", strconv.FormatInt(t.Unix(), 10))
+	req.Header.Set("User-Agent", fmt.Sprintf("intx-sdk-go/%s", sdkVersion))
 }
 
 func sign(method, path string, t int64, signingKey string, body []byte) string {

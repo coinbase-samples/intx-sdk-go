@@ -44,7 +44,7 @@ func (s ordersServiceImpl) GetOrderDetails(
 
 	queryParams := core.AppendHttpQueryParam("", "portfolio", request.PortfolioId)
 
-	response := &GetOrderDetailsResponse{Request: request, Order: &model.Order{}}
+	response := &GetOrderDetailsResponse{Request: request}
 
 	if err := core.HttpGet(
 		ctx,
@@ -53,7 +53,7 @@ func (s ordersServiceImpl) GetOrderDetails(
 		queryParams,
 		client.DefaultSuccessHttpStatusCodes,
 		request,
-		response.Order,
+		&response.Order,
 		s.client.HeadersFunc(),
 	); err != nil {
 		return nil, err

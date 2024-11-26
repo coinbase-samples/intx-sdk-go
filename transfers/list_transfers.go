@@ -82,7 +82,7 @@ func (s transfersServiceImpl) ListTransfers(
 		queryParams,
 		client.DefaultSuccessHttpStatusCodes,
 		request,
-		response.Transfers,
+		&response.Transfers,
 		s.client.HeadersFunc(),
 	); err != nil {
 		return nil, err

@@ -42,7 +42,7 @@ func (s portfoliosServiceImpl) UpdatePortfolio(
 
 	path := fmt.Sprintf("/portfolios/%s", request.PortfolioId)
 
-	response := &UpdatePortfolioResponse{Request: request, Portfolio: &model.Portfolio{}}
+	response := &UpdatePortfolioResponse{Request: request}
 
 	if err := core.HttpPost(
 		ctx,
@@ -51,7 +51,7 @@ func (s portfoliosServiceImpl) UpdatePortfolio(
 		core.EmptyQueryParams,
 		client.DefaultSuccessHttpStatusCodes,
 		request,
-		response.Portfolio,
+		&response.Portfolio,
 		s.client.HeadersFunc(),
 	); err != nil {
 		return nil, err

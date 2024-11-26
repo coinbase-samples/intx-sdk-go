@@ -41,7 +41,7 @@ func (s portfoliosServiceImpl) GetPortfolio(
 
 	path := fmt.Sprintf("/portfolios/%s", request.PortfolioId)
 
-	response := &GetPortfolioResponse{Request: request, Portfolio: &model.Portfolio{}}
+	response := &GetPortfolioResponse{Request: request}
 
 	if err := core.HttpGet(
 		ctx,
@@ -50,7 +50,7 @@ func (s portfoliosServiceImpl) GetPortfolio(
 		core.EmptyQueryParams,
 		client.DefaultSuccessHttpStatusCodes,
 		request,
-		response.Portfolio,
+		&response.Portfolio,
 		s.client.HeadersFunc(),
 	); err != nil {
 		return nil, err

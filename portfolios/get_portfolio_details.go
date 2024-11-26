@@ -41,7 +41,7 @@ func (s portfoliosServiceImpl) GetPortfolioDetails(
 
 	path := fmt.Sprintf("/portfolios/%s/detail", request.PortfolioId)
 
-	response := &GetPortfolioDetailsResponse{Request: request, Details: &model.Details{}}
+	response := &GetPortfolioDetailsResponse{Request: request}
 
 	if err := core.HttpGet(
 		ctx,
@@ -50,7 +50,7 @@ func (s portfoliosServiceImpl) GetPortfolioDetails(
 		core.EmptyQueryParams,
 		client.DefaultSuccessHttpStatusCodes,
 		request,
-		response.Details,
+		&response.Details,
 		s.client.HeadersFunc(),
 	); err != nil {
 		return nil, err

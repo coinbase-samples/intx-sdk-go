@@ -44,7 +44,7 @@ func (s ordersServiceImpl) CancelOrder(
 
 	queryParams := core.AppendHttpQueryParam("", "portfolio", request.PortfolioId)
 
-	response := &CancelOrderResponse{Request: request, Order: &model.Order{}}
+	response := &CancelOrderResponse{Request: request}
 
 	if err := core.HttpDelete(
 		ctx,
@@ -53,7 +53,7 @@ func (s ordersServiceImpl) CancelOrder(
 		queryParams,
 		client.DefaultSuccessHttpStatusCodes,
 		request,
-		response.Order,
+		&response.Order,
 		s.client.HeadersFunc(),
 	); err != nil {
 		return nil, err

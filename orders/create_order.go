@@ -52,7 +52,7 @@ func (s ordersServiceImpl) CreateOrder(
 
 	path := "/orders"
 
-	response := &CreateOrderResponse{Request: request, Order: &model.Order{}}
+	response := &CreateOrderResponse{Request: request}
 
 	if err := core.HttpPost(
 		ctx,
@@ -61,7 +61,7 @@ func (s ordersServiceImpl) CreateOrder(
 		core.EmptyQueryParams,
 		client.DefaultSuccessHttpStatusCodes,
 		request,
-		response.Order,
+		&response.Order,
 		s.client.HeadersFunc(),
 	); err != nil {
 		return nil, err

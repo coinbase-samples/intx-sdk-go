@@ -41,7 +41,7 @@ func (s instrumentsServiceImpl) GetInstrument(
 
 	path := fmt.Sprintf("/instruments/%s", request.InstrumentId)
 
-	response := &GetInstrumentResponse{Request: request, InstrumentDetail: &model.Instrument{}}
+	response := &GetInstrumentResponse{Request: request}
 
 	if err := core.HttpGet(
 		ctx,
@@ -50,7 +50,7 @@ func (s instrumentsServiceImpl) GetInstrument(
 		core.EmptyQueryParams,
 		client.DefaultSuccessHttpStatusCodes,
 		request,
-		response.InstrumentDetail,
+		&response.InstrumentDetail,
 		s.client.HeadersFunc(),
 	); err != nil {
 		return nil, err

@@ -62,7 +62,7 @@ func (s ordersServiceImpl) ModifyOrder(
 		Size:          request.Size,
 	}
 
-	response := &ModifyOrderResponse{Request: request, Order: &model.Order{}}
+	response := &ModifyOrderResponse{Request: request}
 
 	if err := core.HttpPut(
 		ctx,
@@ -71,7 +71,7 @@ func (s ordersServiceImpl) ModifyOrder(
 		core.EmptyQueryParams,
 		client.DefaultSuccessHttpStatusCodes,
 		body,
-		response.Order,
+		&response.Order,
 		s.client.HeadersFunc(),
 	); err != nil {
 		return nil, err

@@ -42,7 +42,7 @@ func (s portfoliosServiceImpl) GetAssetBalance(
 
 	path := fmt.Sprintf("/portfolios/%s/balances/%s", request.PortfolioId, request.AssetId)
 
-	response := &GetAssetBalanceResponse{Request: request, Balance: &model.Balance{}}
+	response := &GetAssetBalanceResponse{Request: request}
 
 	if err := core.HttpPost(
 		ctx,
@@ -51,7 +51,7 @@ func (s portfoliosServiceImpl) GetAssetBalance(
 		core.EmptyQueryParams,
 		client.DefaultSuccessHttpStatusCodes,
 		request,
-		response.Balance,
+		&response.Balance,
 		s.client.HeadersFunc(),
 	); err != nil {
 		return nil, err

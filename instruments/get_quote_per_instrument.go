@@ -41,7 +41,7 @@ func (s instrumentsServiceImpl) GetInstrumentQuote(
 
 	path := fmt.Sprintf("/instruments/%s/quote", request.InstrumentId)
 
-	response := &GetInstrumentQuoteResponse{Request: request, InstrumentQuote: &model.Quote{}}
+	response := &GetInstrumentQuoteResponse{Request: request}
 
 	if err := core.HttpGet(
 		ctx,
@@ -50,7 +50,7 @@ func (s instrumentsServiceImpl) GetInstrumentQuote(
 		core.EmptyQueryParams,
 		client.DefaultSuccessHttpStatusCodes,
 		request,
-		response.InstrumentQuote,
+		&response.InstrumentQuote,
 		s.client.HeadersFunc(),
 	); err != nil {
 		return nil, err

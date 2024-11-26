@@ -40,7 +40,7 @@ func (s portfoliosServiceImpl) CreatePortfolio(
 
 	path := "/portfolios"
 
-	response := &CreatePortfolioResponse{Request: request, Portfolio: &model.Portfolio{}}
+	response := &CreatePortfolioResponse{Request: request}
 
 	if err := core.HttpPost(
 		ctx,
@@ -49,7 +49,7 @@ func (s portfoliosServiceImpl) CreatePortfolio(
 		core.EmptyQueryParams,
 		client.DefaultSuccessHttpStatusCodes,
 		request,
-		response.Portfolio,
+		&response.Portfolio,
 		s.client.HeadersFunc(),
 	); err != nil {
 		return nil, err

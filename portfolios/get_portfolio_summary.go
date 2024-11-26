@@ -41,7 +41,7 @@ func (s portfoliosServiceImpl) GetPortfolioSummary(
 
 	path := fmt.Sprintf("/portfolios/%s/summary", request.PortfolioId)
 
-	response := &GetPortfolioSummaryResponse{Request: request, Summary: &model.Summary{}}
+	response := &GetPortfolioSummaryResponse{Request: request}
 
 	if err := core.HttpGet(
 		ctx,
@@ -50,7 +50,7 @@ func (s portfoliosServiceImpl) GetPortfolioSummary(
 		core.EmptyQueryParams,
 		client.DefaultSuccessHttpStatusCodes,
 		request,
-		response.Summary,
+		&response.Summary,
 		s.client.HeadersFunc(),
 	); err != nil {
 		return nil, err

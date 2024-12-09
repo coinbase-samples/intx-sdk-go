@@ -26,7 +26,9 @@ import (
 )
 
 type GetPortfolioPositionsRequest struct {
+	// Deprecated: Use Portfolio instead.
 	PortfolioId string `json:"portfolio"`
+	Portfolio   string `json:"portfolio"`
 }
 
 type GetPortfolioPositionsResponse struct {
@@ -39,7 +41,12 @@ func (s portfoliosServiceImpl) GetPortfolioPositions(
 	request *GetPortfolioPositionsRequest,
 ) (*GetPortfolioPositionsResponse, error) {
 
-	path := fmt.Sprintf("/portfolios/%s/positions", request.PortfolioId)
+	portfolio := request.Portfolio
+	if portfolio == "" {
+		portfolio = request.PortfolioId
+	}
+
+	path := fmt.Sprintf("/portfolios/%s/positions", portfolio)
 
 	response := &GetPortfolioPositionsResponse{Request: request}
 

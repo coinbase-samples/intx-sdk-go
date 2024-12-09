@@ -25,8 +25,12 @@ import (
 )
 
 type CreateCryptoAddressRequest struct {
-	PortfolioId  string `json:"portfolio"`
+	// Deprecated: Use Portfolio instead.
+	PortfolioId string `json:"portfolio"`
+	Portfolio   string `json:"portfolio"`
+	// Deprecated: Use Asset instead.
 	AssetId      string `json:"asset"`
+	Asset        string `json:"asset"`
 	NetworkArnId string `json:"network_arn_id"`
 }
 
@@ -39,6 +43,16 @@ func (s transfersServiceImpl) CreateCryptoAddress(
 	ctx context.Context,
 	request *CreateCryptoAddressRequest,
 ) (*CreateCryptoAddressResponse, error) {
+
+	if request.Portfolio == "" && request.PortfolioId != "" {
+		request.Portfolio = request.PortfolioId
+	}
+	request.PortfolioId = ""
+
+	if request.Asset == "" && request.AssetId != "" {
+		request.Asset = request.AssetId
+	}
+	request.AssetId = ""
 
 	path := "/transfers/address"
 

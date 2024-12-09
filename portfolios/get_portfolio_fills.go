@@ -27,7 +27,9 @@ import (
 )
 
 type GetPortfolioFillsRequest struct {
+	// Deprecated: Use Portfolio instead.
 	PortfolioId   string `json:"portfolio"`
+	Portfolio     string `json:"portfolio"`
 	OrderId       string `json:"order_id,omitempty"`
 	ClientOrderId string `json:"client_order_id,omitempty"`
 	RefDatetime   string `json:"ref_datetime,omitempty"`
@@ -48,7 +50,12 @@ func (s portfoliosServiceImpl) GetPortfolioFills(
 	request *GetPortfolioFillsRequest,
 ) (*GetPortfolioFillsResponse, error) {
 
-	path := fmt.Sprintf("/portfolios/%s/fills", request.PortfolioId)
+	portfolio := request.Portfolio
+	if portfolio == "" {
+		portfolio = request.PortfolioId
+	}
+
+	path := fmt.Sprintf("/portfolios/%s/fills", portfolio)
 
 	queryParams := core.AppendHttpQueryParam("", "portfolios", request.PortfolioId)
 

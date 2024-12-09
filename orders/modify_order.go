@@ -26,7 +26,9 @@ import (
 )
 
 type ModifyOrderRequest struct {
+	// Deprecated: Use Id instead.
 	OrderId       string `json:"id"`
+	Id            string `json:"id"`
 	PortfolioId   string `json:"portfolio"`
 	ClientOrderId string `json:"client_order_id"`
 	Price         string `json:"price,omitempty"`
@@ -44,7 +46,12 @@ func (s ordersServiceImpl) ModifyOrder(
 	request *ModifyOrderRequest,
 ) (*ModifyOrderResponse, error) {
 
-	path := fmt.Sprintf("/orders/%s", request.OrderId)
+	id := request.Id
+	if id == "" {
+		id = request.OrderId
+	}
+
+	path := fmt.Sprintf("/orders/%s", id)
 
 	type modifyOrderBody struct {
 		Portfolio     string `json:"portfolio"`

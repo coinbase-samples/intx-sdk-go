@@ -26,8 +26,12 @@ import (
 )
 
 type GetAssetBalanceRequest struct {
+	// Deprecated: Use Portfolio instead.
 	PortfolioId string `json:"portfolio"`
-	AssetId     string `json:"asset"`
+	Portfolio   string `json:"portfolio"`
+	// Deprecated: Use Asset instead.
+	AssetId string `json:"asset"`
+	Asset   string `json:"asset"`
 }
 
 type GetAssetBalanceResponse struct {
@@ -40,7 +44,17 @@ func (s portfoliosServiceImpl) GetAssetBalance(
 	request *GetAssetBalanceRequest,
 ) (*GetAssetBalanceResponse, error) {
 
-	path := fmt.Sprintf("/portfolios/%s/balances/%s", request.PortfolioId, request.AssetId)
+	portfolio := request.Portfolio
+	if portfolio == "" {
+		portfolio = request.PortfolioId
+	}
+
+	asset := request.Asset
+	if asset == "" {
+		asset = request.AssetId
+	}
+
+	path := fmt.Sprintf("/portfolios/%s/balances/%s", portfolio, asset)
 
 	response := &GetAssetBalanceResponse{Request: request}
 

@@ -25,7 +25,9 @@ import (
 )
 
 type CreateCounterpartyIdRequest struct {
+	// Deprecated: Use Portfolio instead.
 	PortfolioId string `json:"portfolio"`
+	Portfolio   string `json:"portfolio"`
 }
 
 type CreateCounterpartyIdResponse struct {
@@ -38,9 +40,14 @@ func (s transfersServiceImpl) CreateCounterpartyId(
 	request *CreateCounterpartyIdRequest,
 ) (*CreateCounterpartyIdResponse, error) {
 
+	portfolio := request.Portfolio
+	if portfolio == "" {
+		portfolio = request.PortfolioId
+	}
+
 	path := "/transfers/create-counterparty-id"
 
-	queryParams := core.AppendHttpQueryParam("", "portfolio", request.PortfolioId)
+	queryParams := core.AppendHttpQueryParam("", "portfolio", portfolio)
 
 	response := &CreateCounterpartyIdResponse{Request: request}
 

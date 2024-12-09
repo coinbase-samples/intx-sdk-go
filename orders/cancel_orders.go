@@ -25,7 +25,9 @@ import (
 )
 
 type CancelOrdersRequest struct {
+	// Deprecated: Use Portfolio instead.
 	PortfolioId  string `json:"portfolio"`
+	Portfolio    string `json:"portfolio"`
 	InstrumentId string `json:"instrument"`
 }
 
@@ -39,9 +41,14 @@ func (s ordersServiceImpl) CancelOrders(
 	request *CancelOrdersRequest,
 ) (*CancelOrdersResponse, error) {
 
+	portfolio := request.Portfolio
+	if portfolio == "" {
+		portfolio = request.PortfolioId
+	}
+
 	path := "/orders"
 
-	queryParams := core.AppendHttpQueryParam("", "portfolio", request.PortfolioId)
+	queryParams := core.AppendHttpQueryParam("", "portfolio", portfolio)
 
 	if request.InstrumentId != "" {
 		queryParams = core.AppendHttpQueryParam(queryParams, "instrument", request.InstrumentId)

@@ -27,7 +27,9 @@ import (
 
 type GetOrderDetailsRequest struct {
 	PortfolioId string `json:"portfolio"`
-	OrderId     string `json:"id"`
+	// Deprecated: Use Id instead.
+	OrderId string `json:"id"`
+	Id      string `json:"id"`
 }
 
 type GetOrderDetailsResponse struct {
@@ -40,7 +42,12 @@ func (s ordersServiceImpl) GetOrderDetails(
 	request *GetOrderDetailsRequest,
 ) (*GetOrderDetailsResponse, error) {
 
-	path := fmt.Sprintf("/orders/%s", request.OrderId)
+	id := request.Id
+	if id == "" {
+		id = request.OrderId
+	}
+
+	path := fmt.Sprintf("/orders/%s", id)
 
 	queryParams := core.AppendHttpQueryParam("", "portfolio", request.PortfolioId)
 

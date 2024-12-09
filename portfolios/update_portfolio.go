@@ -26,8 +26,10 @@ import (
 )
 
 type UpdatePortfolioRequest struct {
-	Name        string `json:"name"`
+	Name string `json:"name"`
+	// Deprecated: Use Portfolio instead.
 	PortfolioId string `json:"portfolio"`
+	Portfolio   string `json:"portfolio"`
 }
 
 type UpdatePortfolioResponse struct {
@@ -40,7 +42,12 @@ func (s portfoliosServiceImpl) UpdatePortfolio(
 	request *UpdatePortfolioRequest,
 ) (*UpdatePortfolioResponse, error) {
 
-	path := fmt.Sprintf("/portfolios/%s", request.PortfolioId)
+	portfolio := request.Portfolio
+	if portfolio == "" {
+		portfolio = request.PortfolioId
+	}
+
+	path := fmt.Sprintf("/portfolios/%s", portfolio)
 
 	response := &UpdatePortfolioResponse{Request: request}
 

@@ -25,7 +25,9 @@ import (
 )
 
 type SetMarginOverrideRequest struct {
+	// Deprecated: Use Portfolio instead.
 	PortfolioId    string `json:"portfolio"`
+	Portfolio      string `json:"portfolio"`
 	MarginOverride string `json:"margin_override"`
 }
 
@@ -38,6 +40,12 @@ func (s portfoliosServiceImpl) SetMarginOverride(
 	ctx context.Context,
 	request *SetMarginOverrideRequest,
 ) (*SetMarginOverrideResponse, error) {
+
+	if request.Portfolio == "" && request.PortfolioId != "" {
+		request.Portfolio = request.PortfolioId
+	}
+
+	request.PortfolioId = ""
 
 	path := "/portfolios/margin"
 

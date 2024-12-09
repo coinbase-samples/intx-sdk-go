@@ -27,7 +27,9 @@ import (
 )
 
 type ListTransfersRequest struct {
+	// Deprecated: Use Portfolios instead.
 	PortfolioIds string `json:"portfolios"`
+	Portfolios   string `json:"portfolios"`
 	TimeFrom     string `json:"time_from"`
 	TimeTo       string `json:"time_to"`
 	ResultLimit  int    `json:"result_limit"`
@@ -48,9 +50,14 @@ func (s transfersServiceImpl) ListTransfers(
 	request *ListTransfersRequest,
 ) (*ListTransfersResponse, error) {
 
+	portfolios := request.Portfolios
+	if portfolios == "" {
+		portfolios = request.PortfolioIds
+	}
+
 	path := "/transfers"
 
-	queryParams := core.AppendHttpQueryParam("", "portfolios", request.PortfolioIds)
+	queryParams := core.AppendHttpQueryParam("", "portfolios", portfolios)
 
 	if request.TimeFrom != "" {
 		queryParams = core.AppendHttpQueryParam(queryParams, "time_from", request.TimeFrom)

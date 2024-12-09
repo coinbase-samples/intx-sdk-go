@@ -26,8 +26,12 @@ import (
 )
 
 type GetInstrumentPositionRequest struct {
-	PortfolioId  string `json:"portfolio"`
+	// Deprecated: Use Portfolio instead.
+	PortfolioId string `json:"portfolio"`
+	Portfolio   string `json:"portfolio"`
+	// Deprecated: Use Instrument instead.
 	InstrumentId string `json:"instrument"`
+	Instrument   string `json:"instrument"`
 }
 
 type GetInstrumentPositionResponse struct {
@@ -40,7 +44,17 @@ func (s portfoliosServiceImpl) GetInstrumentPosition(
 	request *GetInstrumentPositionRequest,
 ) (*GetInstrumentPositionResponse, error) {
 
-	path := fmt.Sprintf("/portfolios/%s/positions/%s", request.PortfolioId, request.InstrumentId)
+	portfolio := request.Portfolio
+	if portfolio == "" {
+		portfolio = request.PortfolioId
+	}
+
+	instrument := request.Instrument
+	if instrument == "" {
+		instrument = request.InstrumentId
+	}
+
+	path := fmt.Sprintf("/portfolios/%s/positions/%s", portfolio, instrument)
 
 	response := &GetInstrumentPositionResponse{Request: request}
 

@@ -24,8 +24,12 @@ import (
 )
 
 type CreateWithdrawalToCryptoAddressRequest struct {
-	PortfolioId          string `json:"portfolio"`
+	// Deprecated: Use Portfolio instead.
+	PortfolioId string `json:"portfolio"`
+	Portfolio   string `json:"portfolio"`
+	// Deprecated: Use Asset instead.
 	AssetId              string `json:"asset"`
+	Asset                string `json:"asset"`
 	Amount               string `json:"amount"`
 	AddNetworkFeeToTotal bool   `json:"add_network_fee_to_total"`
 	NetworkArnId         string `json:"network_arn_id"`
@@ -42,6 +46,16 @@ func (s transfersServiceImpl) CreateWithdrawalToCryptoAddress(
 	ctx context.Context,
 	request *CreateWithdrawalToCryptoAddressRequest,
 ) (*CreateWithdrawalToCryptoAddressResponse, error) {
+
+	if request.Portfolio == "" && request.PortfolioId != "" {
+		request.Portfolio = request.PortfolioId
+	}
+	request.PortfolioId = ""
+
+	if request.Asset == "" && request.AssetId != "" {
+		request.Asset = request.AssetId
+	}
+	request.AssetId = ""
 
 	path := "/transfers/withdraw"
 

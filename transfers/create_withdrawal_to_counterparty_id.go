@@ -25,11 +25,15 @@ import (
 )
 
 type CreateWithdrawalToCounterpartyIdRequest struct {
+	// Deprecated: Use Portfolio instead.
 	PortfolioId    string `json:"portfolio"`
+	Portfolio      string `json:"portfolio"`
 	CounterpartyId string `json:"counterparty_id"`
-	AssetId        string `json:"asset"`
-	Amount         string `json:"amount"`
-	Nonce          string `json:"nonce"`
+	// Deprecated: Use Asset instead.
+	AssetId string `json:"asset"`
+	Asset   string `json:"asset"`
+	Amount  string `json:"amount"`
+	Nonce   string `json:"nonce"`
 }
 
 type CreateWithdrawalToCounterpartyIdResponse struct {
@@ -41,6 +45,16 @@ func (s transfersServiceImpl) CreateWithdrawalToCounterpartyId(
 	ctx context.Context,
 	request *CreateWithdrawalToCounterpartyIdRequest,
 ) (*CreateWithdrawalToCounterpartyIdResponse, error) {
+
+	if request.Portfolio == "" && request.PortfolioId != "" {
+		request.Portfolio = request.PortfolioId
+	}
+	request.PortfolioId = ""
+
+	if request.Asset == "" && request.AssetId != "" {
+		request.Asset = request.AssetId
+	}
+	request.AssetId = ""
 
 	path := "/transfers/withdraw/counterparty"
 

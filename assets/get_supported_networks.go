@@ -26,7 +26,9 @@ import (
 )
 
 type GetSupportedNetworksRequest struct {
+	// Deprecated: Use Asset instead.
 	AssetId string `json:"asset"`
+	Asset   string `json:"asset"`
 }
 
 type GetSupportedNetworksResponse struct {
@@ -39,7 +41,12 @@ func (s assetsServiceImpl) GetSupportedNetworks(
 	request *GetSupportedNetworksRequest,
 ) (*GetSupportedNetworksResponse, error) {
 
-	path := fmt.Sprintf("/assets/%s/networks", request.AssetId)
+	assetId := request.Asset
+	if assetId == "" {
+		assetId = request.AssetId
+	}
+
+	path := fmt.Sprintf("/assets/%s/networks", assetId)
 
 	response := &GetSupportedNetworksResponse{Request: request}
 

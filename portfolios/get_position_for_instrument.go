@@ -19,6 +19,7 @@ package portfolios
 import (
 	"context"
 	"fmt"
+	"github.com/coinbase-samples/intx-sdk-go/utils"
 
 	"github.com/coinbase-samples/core-go"
 	"github.com/coinbase-samples/intx-sdk-go/client"
@@ -27,10 +28,10 @@ import (
 
 type GetInstrumentPositionRequest struct {
 	// Deprecated: Use Portfolio instead.
-	PortfolioId string `json:"portfolio"`
+	PortfolioId string `json:"-"`
 	Portfolio   string `json:"portfolio"`
 	// Deprecated: Use Instrument instead.
-	InstrumentId string `json:"instrument"`
+	InstrumentId string `json:"-"`
 	Instrument   string `json:"instrument"`
 }
 
@@ -44,17 +45,11 @@ func (s portfoliosServiceImpl) GetInstrumentPosition(
 	request *GetInstrumentPositionRequest,
 ) (*GetInstrumentPositionResponse, error) {
 
-	portfolio := request.Portfolio
-	if portfolio == "" {
-		portfolio = request.PortfolioId
-	}
+	utils.FallbackDeprecatedField(&request.Portfolio, request.PortfolioId)
 
-	instrument := request.Instrument
-	if instrument == "" {
-		instrument = request.InstrumentId
-	}
+	utils.FallbackDeprecatedField(&request.Instrument, request.InstrumentId)
 
-	path := fmt.Sprintf("/portfolios/%s/positions/%s", portfolio, instrument)
+	path := fmt.Sprintf("/portfolios/%s/positions/%s", request.Portfolio, request.Instrument)
 
 	response := &GetInstrumentPositionResponse{Request: request}
 

@@ -28,7 +28,7 @@ import (
 
 type GetPortfolioFillsRequest struct {
 	// Deprecated: Use Portfolio instead.
-	PortfolioId   string `json:"portfolio"`
+	PortfolioId   string `json:"-"`
 	Portfolio     string `json:"portfolio"`
 	OrderId       string `json:"order_id,omitempty"`
 	ClientOrderId string `json:"client_order_id,omitempty"`
@@ -50,12 +50,9 @@ func (s portfoliosServiceImpl) GetPortfolioFills(
 	request *GetPortfolioFillsRequest,
 ) (*GetPortfolioFillsResponse, error) {
 
-	portfolio := request.Portfolio
-	if portfolio == "" {
-		portfolio = request.PortfolioId
-	}
+	utils.FallbackDeprecatedField(&request.Portfolio, request.PortfolioId)
 
-	path := fmt.Sprintf("/portfolios/%s/fills", portfolio)
+	path := fmt.Sprintf("/portfolios/%s/fills", request.Portfolio)
 
 	queryParams := core.AppendHttpQueryParam("", "portfolios", request.PortfolioId)
 

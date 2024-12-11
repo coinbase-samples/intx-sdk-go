@@ -19,6 +19,7 @@ package instruments
 import (
 	"context"
 	"fmt"
+	"github.com/coinbase-samples/intx-sdk-go/utils"
 
 	"github.com/coinbase-samples/core-go"
 	"github.com/coinbase-samples/intx-sdk-go/client"
@@ -26,7 +27,9 @@ import (
 )
 
 type GetHistoricalFundingRequest struct {
-	InstrumentId string `json:"instrument"`
+	// Deprecated: Use Instrument instead.
+	InstrumentId string `json:"-"`
+	Instrument   string `json:"instrument"`
 }
 
 type GetHistoricalFundingResponse struct {
@@ -39,7 +42,9 @@ func (s instrumentsServiceImpl) GetHistoricalFundingRates(
 	request *GetHistoricalFundingRequest,
 ) (*GetHistoricalFundingResponse, error) {
 
-	path := fmt.Sprintf("/instruments/%s/funding", request.InstrumentId)
+	utils.FallbackDeprecatedField(&request.Instrument, request.InstrumentId)
+
+	path := fmt.Sprintf("/instruments/%s/funding", request.Instrument)
 
 	response := &GetHistoricalFundingResponse{Request: request}
 

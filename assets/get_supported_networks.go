@@ -19,6 +19,7 @@ package assets
 import (
 	"context"
 	"fmt"
+	"github.com/coinbase-samples/intx-sdk-go/utils"
 
 	"github.com/coinbase-samples/core-go"
 	"github.com/coinbase-samples/intx-sdk-go/client"
@@ -26,7 +27,9 @@ import (
 )
 
 type GetSupportedNetworksRequest struct {
-	AssetId string `json:"asset"`
+	// Deprecated: Use Asset instead.
+	AssetId string `json:"-"`
+	Asset   string `json:"asset"`
 }
 
 type GetSupportedNetworksResponse struct {
@@ -39,7 +42,9 @@ func (s assetsServiceImpl) GetSupportedNetworks(
 	request *GetSupportedNetworksRequest,
 ) (*GetSupportedNetworksResponse, error) {
 
-	path := fmt.Sprintf("/assets/%s/networks", request.AssetId)
+	utils.FallbackDeprecatedField(&request.Asset, request.AssetId)
+
+	path := fmt.Sprintf("/assets/%s/networks", request.Asset)
 
 	response := &GetSupportedNetworksResponse{Request: request}
 

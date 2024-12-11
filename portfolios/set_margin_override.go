@@ -18,6 +18,7 @@ package portfolios
 
 import (
 	"context"
+	"github.com/coinbase-samples/intx-sdk-go/utils"
 
 	"github.com/coinbase-samples/core-go"
 	"github.com/coinbase-samples/intx-sdk-go/client"
@@ -25,7 +26,9 @@ import (
 )
 
 type SetMarginOverrideRequest struct {
-	PortfolioId    string `json:"portfolio"`
+	// Deprecated: Use Portfolio instead.
+	PortfolioId    string `json:"-"`
+	Portfolio      string `json:"portfolio"`
 	MarginOverride string `json:"margin_override"`
 }
 
@@ -38,6 +41,8 @@ func (s portfoliosServiceImpl) SetMarginOverride(
 	ctx context.Context,
 	request *SetMarginOverrideRequest,
 ) (*SetMarginOverrideResponse, error) {
+
+	utils.FallbackDeprecatedField(&request.Portfolio, request.PortfolioId)
 
 	path := "/portfolios/margin"
 

@@ -18,6 +18,7 @@ package orders
 
 import (
 	"context"
+	"github.com/coinbase-samples/intx-sdk-go/utils"
 
 	"github.com/coinbase-samples/core-go"
 	"github.com/coinbase-samples/intx-sdk-go/client"
@@ -25,7 +26,9 @@ import (
 )
 
 type CancelOrdersRequest struct {
-	PortfolioId  string `json:"portfolio"`
+	// Deprecated: Use Portfolio instead.
+	PortfolioId  string `json:"-"`
+	Portfolio    string `json:"portfolio"`
 	InstrumentId string `json:"instrument"`
 }
 
@@ -39,9 +42,11 @@ func (s ordersServiceImpl) CancelOrders(
 	request *CancelOrdersRequest,
 ) (*CancelOrdersResponse, error) {
 
+	utils.FallbackDeprecatedField(&request.Portfolio, request.PortfolioId)
+
 	path := "/orders"
 
-	queryParams := core.AppendHttpQueryParam("", "portfolio", request.PortfolioId)
+	queryParams := core.AppendHttpQueryParam("", "portfolio", request.Portfolio)
 
 	if request.InstrumentId != "" {
 		queryParams = core.AppendHttpQueryParam(queryParams, "instrument", request.InstrumentId)

@@ -27,7 +27,9 @@ import (
 )
 
 type ListFillsByPortfoliosRequest struct {
-	PortfolioIds  string `json:"portfolios"`
+	// Deprecated: Use Portfolios instead.
+	PortfolioIds  string `json:"-"`
+	Portfolios    string `json:"portfolios"`
 	OrderId       string `json:"order_id,omitempty"`
 	ClientOrderId string `json:"client_order_id,omitempty"`
 	RefDatetime   string `json:"ref_datetime,omitempty"`
@@ -48,9 +50,11 @@ func (s portfoliosServiceImpl) ListFillsByPortfolios(
 	request *ListFillsByPortfoliosRequest,
 ) (*ListFillsByPortfoliosResponse, error) {
 
+	utils.FallbackDeprecatedField(&request.Portfolios, request.PortfolioIds)
+
 	path := "/portfolios/fills"
 
-	queryParams := core.AppendHttpQueryParam("", "portfolios", request.PortfolioIds)
+	queryParams := core.AppendHttpQueryParam("", "portfolios", request.Portfolios)
 
 	if request.OrderId != "" {
 		queryParams = core.AppendHttpQueryParam(queryParams, "order_id", request.OrderId)

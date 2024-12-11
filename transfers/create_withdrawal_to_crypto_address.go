@@ -18,14 +18,19 @@ package transfers
 
 import (
 	"context"
+	"github.com/coinbase-samples/intx-sdk-go/utils"
 
 	"github.com/coinbase-samples/core-go"
 	"github.com/coinbase-samples/intx-sdk-go/client"
 )
 
 type CreateWithdrawalToCryptoAddressRequest struct {
-	PortfolioId          string `json:"portfolio"`
-	AssetId              string `json:"asset"`
+	// Deprecated: Use Portfolio instead.
+	PortfolioId string `json:"-"`
+	Portfolio   string `json:"portfolio"`
+	// Deprecated: Use Asset instead.
+	AssetId              string `json:"-"`
+	Asset                string `json:"asset"`
 	Amount               string `json:"amount"`
 	AddNetworkFeeToTotal bool   `json:"add_network_fee_to_total"`
 	NetworkArnId         string `json:"network_arn_id"`
@@ -42,6 +47,10 @@ func (s transfersServiceImpl) CreateWithdrawalToCryptoAddress(
 	ctx context.Context,
 	request *CreateWithdrawalToCryptoAddressRequest,
 ) (*CreateWithdrawalToCryptoAddressResponse, error) {
+
+	utils.FallbackDeprecatedField(&request.Portfolio, request.PortfolioId)
+
+	utils.FallbackDeprecatedField(&request.Asset, request.AssetId)
 
 	path := "/transfers/withdraw"
 

@@ -18,6 +18,7 @@ package transfers
 
 import (
 	"context"
+	"github.com/coinbase-samples/intx-sdk-go/utils"
 
 	"github.com/coinbase-samples/core-go"
 	"github.com/coinbase-samples/intx-sdk-go/client"
@@ -25,8 +26,12 @@ import (
 )
 
 type CreateCryptoAddressRequest struct {
-	PortfolioId  string `json:"portfolio"`
-	AssetId      string `json:"asset"`
+	// Deprecated: Use Portfolio instead.
+	PortfolioId string `json:"-"`
+	Portfolio   string `json:"portfolio"`
+	// Deprecated: Use Asset instead.
+	AssetId      string `json:"-"`
+	Asset        string `json:"asset"`
 	NetworkArnId string `json:"network_arn_id"`
 }
 
@@ -39,6 +44,10 @@ func (s transfersServiceImpl) CreateCryptoAddress(
 	ctx context.Context,
 	request *CreateCryptoAddressRequest,
 ) (*CreateCryptoAddressResponse, error) {
+
+	utils.FallbackDeprecatedField(&request.Portfolio, request.PortfolioId)
+
+	utils.FallbackDeprecatedField(&request.Asset, request.AssetId)
 
 	path := "/transfers/address"
 

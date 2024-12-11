@@ -27,7 +27,9 @@ import (
 )
 
 type ListTransfersRequest struct {
-	PortfolioIds string `json:"portfolios"`
+	// Deprecated: Use Portfolios instead.
+	PortfolioIds string `json:"-"`
+	Portfolios   string `json:"portfolios"`
 	TimeFrom     string `json:"time_from"`
 	TimeTo       string `json:"time_to"`
 	ResultLimit  int    `json:"result_limit"`
@@ -48,9 +50,11 @@ func (s transfersServiceImpl) ListTransfers(
 	request *ListTransfersRequest,
 ) (*ListTransfersResponse, error) {
 
+	utils.FallbackDeprecatedField(&request.Portfolios, request.PortfolioIds)
+
 	path := "/transfers"
 
-	queryParams := core.AppendHttpQueryParam("", "portfolios", request.PortfolioIds)
+	queryParams := core.AppendHttpQueryParam("", "portfolios", request.Portfolios)
 
 	if request.TimeFrom != "" {
 		queryParams = core.AppendHttpQueryParam(queryParams, "time_from", request.TimeFrom)

@@ -19,6 +19,7 @@ package portfolios
 import (
 	"context"
 	"fmt"
+	"github.com/coinbase-samples/intx-sdk-go/utils"
 
 	"github.com/coinbase-samples/core-go"
 	"github.com/coinbase-samples/intx-sdk-go/client"
@@ -26,7 +27,9 @@ import (
 )
 
 type GetPortfolioBalancesRequest struct {
-	PortfolioId string `json:"portfolio"`
+	// Deprecated: Use Portfolio instead.
+	PortfolioId string `json:"-"`
+	Portfolio   string `json:"portfolio"`
 }
 
 type GetPortfolioBalancesResponse struct {
@@ -39,7 +42,9 @@ func (s portfoliosServiceImpl) GetPortfolioBalances(
 	request *GetPortfolioBalancesRequest,
 ) (*GetPortfolioBalancesResponse, error) {
 
-	path := fmt.Sprintf("/portfolios/%s/balances", request.PortfolioId)
+	utils.FallbackDeprecatedField(&request.Portfolio, request.PortfolioId)
+
+	path := fmt.Sprintf("/portfolios/%s/balances", request.Portfolio)
 
 	response := &GetPortfolioBalancesResponse{Request: request}
 

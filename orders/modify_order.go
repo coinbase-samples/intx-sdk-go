@@ -19,6 +19,7 @@ package orders
 import (
 	"context"
 	"fmt"
+	"github.com/coinbase-samples/intx-sdk-go/utils"
 
 	"github.com/coinbase-samples/core-go"
 	"github.com/coinbase-samples/intx-sdk-go/client"
@@ -27,7 +28,7 @@ import (
 
 type ModifyOrderRequest struct {
 	// Deprecated: Use Id instead.
-	OrderId       string `json:"id"`
+	OrderId       string `json:"-"`
 	Id            string `json:"id"`
 	PortfolioId   string `json:"portfolio"`
 	ClientOrderId string `json:"client_order_id"`
@@ -46,12 +47,9 @@ func (s ordersServiceImpl) ModifyOrder(
 	request *ModifyOrderRequest,
 ) (*ModifyOrderResponse, error) {
 
-	id := request.Id
-	if id == "" {
-		id = request.OrderId
-	}
+	utils.FallbackDeprecatedField(&request.Id, request.OrderId)
 
-	path := fmt.Sprintf("/orders/%s", id)
+	path := fmt.Sprintf("/orders/%s", request.Id)
 
 	type modifyOrderBody struct {
 		Portfolio     string `json:"portfolio"`

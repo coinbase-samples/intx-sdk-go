@@ -18,6 +18,7 @@ package transfers
 
 import (
 	"context"
+	"github.com/coinbase-samples/intx-sdk-go/utils"
 
 	"github.com/coinbase-samples/core-go"
 	"github.com/coinbase-samples/intx-sdk-go/client"
@@ -26,11 +27,11 @@ import (
 
 type CreateWithdrawalToCounterpartyIdRequest struct {
 	// Deprecated: Use Portfolio instead.
-	PortfolioId    string `json:"portfolio"`
+	PortfolioId    string `json:"-"`
 	Portfolio      string `json:"portfolio"`
 	CounterpartyId string `json:"counterparty_id"`
 	// Deprecated: Use Asset instead.
-	AssetId string `json:"asset"`
+	AssetId string `json:"-"`
 	Asset   string `json:"asset"`
 	Amount  string `json:"amount"`
 	Nonce   string `json:"nonce"`
@@ -46,15 +47,9 @@ func (s transfersServiceImpl) CreateWithdrawalToCounterpartyId(
 	request *CreateWithdrawalToCounterpartyIdRequest,
 ) (*CreateWithdrawalToCounterpartyIdResponse, error) {
 
-	if request.Portfolio == "" && request.PortfolioId != "" {
-		request.Portfolio = request.PortfolioId
-	}
-	request.PortfolioId = ""
+	utils.FallbackDeprecatedField(&request.Portfolio, request.PortfolioId)
 
-	if request.Asset == "" && request.AssetId != "" {
-		request.Asset = request.AssetId
-	}
-	request.AssetId = ""
+	utils.FallbackDeprecatedField(&request.Asset, request.AssetId)
 
 	path := "/transfers/withdraw/counterparty"
 

@@ -19,6 +19,7 @@ package assets
 import (
 	"context"
 	"fmt"
+	"github.com/coinbase-samples/intx-sdk-go/utils"
 
 	"github.com/coinbase-samples/core-go"
 	"github.com/coinbase-samples/intx-sdk-go/client"
@@ -26,7 +27,9 @@ import (
 )
 
 type GetAssetRequest struct {
-	AssetId string `json:"asset"`
+	//Deprecated: Use Asset instead.
+	AssetId string `json:"-"`
+	Asset   string `json:"asset"`
 }
 
 type GetAssetResponse struct {
@@ -39,7 +42,9 @@ func (s assetsServiceImpl) GetAsset(
 	request *GetAssetRequest,
 ) (*GetAssetResponse, error) {
 
-	path := fmt.Sprintf("/assets/%s", request.AssetId)
+	utils.FallbackDeprecatedField(&request.Asset, request.AssetId)
+
+	path := fmt.Sprintf("/assets/%s", request.Asset)
 
 	response := &GetAssetResponse{Request: request}
 

@@ -42,3 +42,9 @@ func AppendPaginationParams(v string, p *model.PaginationParams) string {
 
 	return v
 }
+
+func FallbackDeprecatedField(newField *string, deprecatedField string) {
+	if *newField == "" && deprecatedField != "" {
+		*newField = deprecatedField
+	}
+}

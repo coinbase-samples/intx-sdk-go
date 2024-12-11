@@ -27,8 +27,12 @@ import (
 )
 
 type ListOpenOrdersRequest struct {
-	PortfolioId   string `json:"portfolio"`
-	InstrumentId  string `json:"instrument,omitempty"`
+	// Deprecated: Use Portfolio instead.
+	PortfolioId string `json:"-"`
+	Portfolio   string `json:"portfolio"`
+	// Deprecated: Use Instrument instead.
+	InstrumentId  string `json:"-"`
+	Instrument    string `json:"instrument,omitempty"`
 	ClientOrderId string `json:"client_order_id,omitempty"`
 	EventType     string `json:"event_type,omitempty"`
 	RefDatetime   string `json:"ref_datetime,omitempty"`
@@ -48,12 +52,16 @@ func (s ordersServiceImpl) ListOpenOrders(
 	request *ListOpenOrdersRequest,
 ) (*ListOpenOrdersResponse, error) {
 
+	utils.FallbackDeprecatedField(&request.Portfolio, request.PortfolioId)
+
+	utils.FallbackDeprecatedField(&request.Instrument, request.InstrumentId)
+
 	path := "/orders"
 
-	queryParams := core.AppendHttpQueryParam("", "portfolio", request.PortfolioId)
+	queryParams := core.AppendHttpQueryParam("", "portfolio", request.Portfolio)
 
-	if request.InstrumentId != "" {
-		queryParams = core.AppendHttpQueryParam(queryParams, "instrument", request.InstrumentId)
+	if request.Instrument != "" {
+		queryParams = core.AppendHttpQueryParam(queryParams, "instrument", request.Instrument)
 	}
 	if request.ClientOrderId != "" {
 		queryParams = core.AppendHttpQueryParam(queryParams, "client_order_id", request.ClientOrderId)

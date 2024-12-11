@@ -18,6 +18,7 @@ package transfers
 
 import (
 	"context"
+	"github.com/coinbase-samples/intx-sdk-go/utils"
 
 	"github.com/coinbase-samples/core-go"
 	"github.com/coinbase-samples/intx-sdk-go/client"
@@ -26,7 +27,7 @@ import (
 
 type CreateCounterpartyIdRequest struct {
 	// Deprecated: Use Portfolio instead.
-	PortfolioId string `json:"portfolio"`
+	PortfolioId string `json:"-"`
 	Portfolio   string `json:"portfolio"`
 }
 
@@ -40,14 +41,11 @@ func (s transfersServiceImpl) CreateCounterpartyId(
 	request *CreateCounterpartyIdRequest,
 ) (*CreateCounterpartyIdResponse, error) {
 
-	portfolio := request.Portfolio
-	if portfolio == "" {
-		portfolio = request.PortfolioId
-	}
+	utils.FallbackDeprecatedField(&request.Portfolio, request.PortfolioId)
 
 	path := "/transfers/create-counterparty-id"
 
-	queryParams := core.AppendHttpQueryParam("", "portfolio", portfolio)
+	queryParams := core.AppendHttpQueryParam("", "portfolio", request.Portfolio)
 
 	response := &CreateCounterpartyIdResponse{Request: request}
 

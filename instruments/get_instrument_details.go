@@ -19,6 +19,7 @@ package instruments
 import (
 	"context"
 	"fmt"
+	"github.com/coinbase-samples/intx-sdk-go/utils"
 
 	"github.com/coinbase-samples/core-go"
 	"github.com/coinbase-samples/intx-sdk-go/client"
@@ -26,7 +27,9 @@ import (
 )
 
 type GetInstrumentRequest struct {
-	InstrumentId string `json:"instrument"`
+	// Deprecated: Use Portfolios instead.
+	InstrumentId string `json:"-"`
+	Instrument   string `json:"instrument"`
 }
 
 type GetInstrumentResponse struct {
@@ -39,7 +42,9 @@ func (s instrumentsServiceImpl) GetInstrument(
 	request *GetInstrumentRequest,
 ) (*GetInstrumentResponse, error) {
 
-	path := fmt.Sprintf("/instruments/%s", request.InstrumentId)
+	utils.FallbackDeprecatedField(&request.Instrument, request.InstrumentId)
+
+	path := fmt.Sprintf("/instruments/%s", request.Instrument)
 
 	response := &GetInstrumentResponse{Request: request}
 

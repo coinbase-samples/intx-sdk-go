@@ -1,6 +1,6 @@
 module github.com/coinbase-samples/intx-sdk-go
 
-go 1.19
+go 1.25.0
 
 require (
 	github.com/coinbase-samples/core-go v0.2.0
@@ -10,6 +10,6 @@ require (
 require (
 	github.com/gorilla/websocket v1.5.3 // indirect
 	github.com/shopspring/decimal v1.4.0 // indirect
-	golang.org/x/net v0.30.0 // indirect
-	golang.org/x/text v0.19.0 // indirect
+	golang.org/x/net v0.55.0 // indirect
+	golang.org/x/text v0.37.0 // indirect
 )
